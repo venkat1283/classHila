@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from 'react';
-import { Tabs } from 'expo-router';
+import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useFrameworkReady } from '@/hooks/useFrameworkReady';
 import { useFonts, Poppins_400Regular, Poppins_500Medium, Poppins_600SemiBold, Poppins_700Bold } from '@expo-google-fonts/poppins';
@@ -39,66 +39,13 @@ export default function RootLayout() {
 
   return (
     <>
-      <Tabs
-        screenOptions={{
-          headerShown: false,
-          tabBarStyle: {
-            height: 70,
-            paddingBottom: 10,
-            paddingTop: 10,
-            backgroundColor: '#FFFFFF',
-            borderTopWidth: 1,
-            borderTopColor: '#F3F3F3',
-          },
-          tabBarActiveTintColor: '#3D5CFF',
-          tabBarInactiveTintColor: '#BBBFD0',
-          tabBarLabelStyle: {
-            fontFamily: 'Poppins-Regular',
-            fontSize: 12,
-          },
-        }}
-      >
-        <Tabs.Screen
-          name="index"
-          options={{
-            title: 'Home',
-            tabBarIcon: ({ color, size }) => <Home size={24} color={color} />,
-          }}
-        />
-        <Tabs.Screen
-          name="courses"
-          options={{
-            title: 'Courses',
-            tabBarIcon: ({ color, size }) => <BookOpen size={24} color={color} />,
-          }}
-        />
-        <Tabs.Screen
-          name="search"
-          options={{
-            title: 'Search',
-            tabBarIcon: ({ color, size }) => <Search size={24} color={color} />,
-          }}
-        />
-        <Tabs.Screen
-          name="profile"
-          options={{
-            title: 'Profile',
-            tabBarIcon: ({ color, size }) => <User size={24} color={color} />,
-          }}
-        />
-        <Tabs.Screen
-          name="course/[id]"
-          options={{
-            href: null,
-          }}
-        />
-        <Tabs.Screen
-          name="+not-found"
-          options={{
-            href: null,
-          }}
-        />
-      </Tabs>
+      <Stack>
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="categories" options={{ headerShown: false }} />
+        <Stack.Screen name="categoryDetails" options={{ headerShown: false }} />
+        <Stack.Screen name="+not-found" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="course/[id]" options={{ headerShown: false }} />
+      </Stack>
       <StatusBar style="dark" />
     </>
   );

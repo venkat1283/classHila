@@ -8,6 +8,7 @@ export const popularCourses = [
     price: 75.99,
     rating: 4.8,
     lessons: 24,
+    soldCount:200,
     isBestseller: true,
     duration: '6 weeks',
     level: 'Beginner',
@@ -22,6 +23,7 @@ export const popularCourses = [
     price: 89.99,
     rating: 4.9,
     lessons: 42,
+    soldCount:200,
     isBestseller: false,
     duration: '10 weeks',
     level: 'Intermediate',
@@ -36,6 +38,7 @@ export const popularCourses = [
     price: 59.99,
     rating: 4.7,
     lessons: 18,
+    soldCount:200,
     isBestseller: true,
     duration: '4 weeks',
     level: 'All Levels',
@@ -44,13 +47,22 @@ export const popularCourses = [
 ];
 
 export const categories = [
-  'All',
+  'Railway',
+  'UPSC',
+  'Science',
+  'Groups',
   'Design',
-  'Development',
+  'State Exams',
+  'Health & Fitness',
+  'Self Care',
+  'Life Cycle',
   'Marketing',
-  'Business',
-  'Photography',
-  'Music'
+  'Nature',
+  'Photograhpy & Video',
+  'Personal Development',
+  'Technology'
+
+
 ];
 
 export const courseContent = [

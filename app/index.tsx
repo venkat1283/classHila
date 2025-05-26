@@ -7,18 +7,39 @@ import {
   ScrollView, 
   TouchableOpacity, 
   FlatList,
-  Animated
+  Animated,
+  Platform
 } from 'react-native';
 import { Link } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Search, Bell, ChevronRight, Star } from 'lucide-react-native';
+import { Search, Bell, ChevronRight, Star, Menu } from 'lucide-react-native';
 import { popularCourses, categories } from '@/data/homeData';
+import { TextInput, GestureHandlerRootView } from 'react-native-gesture-handler';
+
+// Define types for data
+interface Course {
+  id: string; // Corrected type based on error
+  title: string;
+  image: string;
+  instructor: string; // Added missing property
+  category: string; // Added missing property
+  price: number; // Added missing property
+  rating: number;
+  lessons: number;
+  isBestseller: boolean; // Added missing property
+  duration: string; // Added missing property
+  level: string; // Added missing property
+  description: string; // Added missing property
+  // Removed 'sold' property as it's missing in the data
+}
+
+type Category = string; // Assuming category item is a string
 
 export default function HomeScreen() {
-  const [activeCategory, setActiveCategory] = useState('All');
+  const [activeCategory, setActiveCategory] = useState<Category>('All');
   const scrollY = useRef(new Animated.Value(0)).current;
 
-  const renderCourseCard = ({ item }) => (
+  const renderCourseCard = ({ item }: { item: Course }) => (
     <Link href={`/course/${item.id}`} asChild>
       <TouchableOpacity style={styles.courseCard}>
         <Image 
@@ -28,35 +49,21 @@ export default function HomeScreen() {
         />
         <View style={styles.courseCardContent}>
           <View style={styles.courseCardTop}>
-            <View style={styles.courseCategory}>
-              <Text style={styles.courseCategoryText}>{item.category}</Text>
-            </View>
             <View style={styles.ratingContainer}>
               <Star size={12} color="#FFC107" fill="#FFC107" />
               <Text style={styles.ratingText}>{item.rating}</Text>
             </View>
           </View>
           <Text style={styles.courseTitle} numberOfLines={2}>{item.title}</Text>
-          <View style={styles.courseInfo}>
-            <Text style={styles.courseInstructor}>{item.instructor}</Text>
-            <View style={styles.lessonContainer}>
-              <Text style={styles.lessonText}>{item.lessons} lessons</Text>
-            </View>
-          </View>
           <View style={styles.courseCardBottom}>
-            <Text style={styles.coursePrice}>${item.price}</Text>
-            {item.isBestseller && (
-              <View style={styles.bestsellerBadge}>
-                <Text style={styles.bestsellerText}>Bestseller</Text>
-              </View>
-            )}
+            <Text style={styles.coursePrice}>{item.lessons} courses</Text>
           </View>
         </View>
       </TouchableOpacity>
     </Link>
   );
 
-  const renderCategoryItem = ({ item }) => (
+  const renderCategoryItem = ({ item }: { item: Category }) => (
     <TouchableOpacity
       style={[
         styles.categoryItem, 
@@ -76,85 +83,98 @@ export default function HomeScreen() {
   );
 
   return (
-    <SafeAreaView style={styles.container} edges={['top']}>
-      <Animated.ScrollView
-        contentContainerStyle={styles.scrollContent}
-        showsVerticalScrollIndicator={false}
-        onScroll={Animated.event(
-          [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-          { useNativeDriver: false }
-        )}
-        scrollEventThrottle={16}
-      >
-        <View style={styles.header}>
-          <View>
-            <Text style={styles.greeting}>Hello, Emma!</Text>
-            <Text style={styles.subGreeting}>Let's start learning</Text>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <SafeAreaView style={styles.container} edges={['top']}>
+        <Animated.ScrollView
+          contentContainerStyle={styles.scrollContent}
+          showsVerticalScrollIndicator={false}
+          onScroll={Animated.event(
+            [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+            { useNativeDriver: false }
+          )}
+          scrollEventThrottle={16}
+        >
+          <View style={styles.customHeader}>
+            <TouchableOpacity style={styles.menuButton}>
+              <Menu size={24} color="#1F1F39" />
+            </TouchableOpacity>
+            <View style={styles.statusInfoPlaceholder}>
+              {/* Icons or Text can be added here if functionality is implemented later */}
+            </View>
+            <TouchableOpacity style={styles.iconButton}>
+              <Bell size={24} color="#FF5454" />
+              {/* Notification badge if needed */}
+            </TouchableOpacity>
           </View>
-          <View style={styles.headerIcons}>
-            <Link href="/search" asChild>
-              <TouchableOpacity style={styles.iconButton}>
-                <Search size={24} color="#1F1F39" />
+
+          <View style={styles.searchBarContainer}>
+            <Search size={20} color="#858597" style={styles.searchIcon} />
+            <TextInput
+              style={styles.searchInput}
+              placeholder="Search"
+              placeholderTextColor="#858597"
+            />
+          </View>
+{/* 
+          <View style={styles.banner}>
+            <Image 
+              source={{ uri: 'https://images.pexels.com/photos/4144100/pexels-photo-4144100.jpeg' }} 
+              style={styles.bannerImage}
+              resizeMode="cover"
+            />
+            <View style={styles.bannerContent}>
+              <Text style={styles.bannerTitle}>New Course!</Text>
+              <Text style={styles.bannerDescription}>Find out the best course for you</Text>
+              <TouchableOpacity style={styles.bannerButton}>
+                <Text style={styles.bannerButtonText}>Join Course</Text>
+              </TouchableOpacity>
+            </View>
+          </View> */}
+
+          <View style={styles.sectionHeader}>
+            <Text style={styles.sectionTitle}>Categories</Text>
+            <Link href="/categories" asChild>
+              <TouchableOpacity style={styles.seeAllButton}>
+                <Text style={styles.seeAllButtonText}>See All</Text>
+                <ChevronRight size={16} color="#3D5CFF" />
               </TouchableOpacity>
             </Link>
-            <TouchableOpacity style={styles.iconButton}>
-              <Bell size={24} color="#1F1F39" />
-              <View style={styles.notificationBadge} />
-            </TouchableOpacity>
           </View>
-        </View>
 
-        <View style={styles.banner}>
-          <Image 
-            source={{ uri: 'https://images.pexels.com/photos/4144100/pexels-photo-4144100.jpeg' }} 
-            style={styles.bannerImage}
-            resizeMode="cover"
+          <FlatList
+            data={categories}
+            renderItem={renderCategoryItem}
+            keyExtractor={(item) => item}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.categoriesList}
           />
-          <View style={styles.bannerContent}>
-            <Text style={styles.bannerTitle}>New Course!</Text>
-            <Text style={styles.bannerDescription}>Find out the best course for you</Text>
-            <TouchableOpacity style={styles.bannerButton}>
-              <Text style={styles.bannerButtonText}>Join Course</Text>
-            </TouchableOpacity>
+
+          <View style={styles.dailyQuoteContainer}>
+            <Text style={styles.dailyQuoteText}>Daily Quote</Text>
           </View>
-        </View>
 
-        <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>Categories</Text>
-          <Link href="/courses" asChild>
-            <TouchableOpacity style={styles.seeAllButton}>
-              <Text style={styles.seeAllButtonText}>See All</Text>
-              <ChevronRight size={16} color="#3D5CFF" />
-            </TouchableOpacity>
-          </Link>
-        </View>
-
-        <FlatList
-          data={categories}
-          renderItem={renderCategoryItem}
-          keyExtractor={(item) => item}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.categoriesList}
-        />
-
-        <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>Popular Courses</Text>
-          <Link href="/courses" asChild>
-            <TouchableOpacity style={styles.seeAllButton}>
-              <Text style={styles.seeAllButtonText}>See All</Text>
-              <ChevronRight size={16} color="#3D5CFF" />
-            </TouchableOpacity>
-          </Link>
-        </View>
-
-        {popularCourses.map((course) => (
-          <View key={course.id}>
-            {renderCourseCard({ item: course })}
+          <View style={styles.sectionHeader}>
+            <Text style={styles.sectionTitle}>Recommendation Course</Text>
+            <Link href="/courses" asChild>
+              <TouchableOpacity style={styles.seeAllButton}>
+                <Text style={styles.seeAllButtonText}>See All</Text>
+                <ChevronRight size={16} color="#3D5CFF" />
+              </TouchableOpacity>
+            </Link>
           </View>
-        ))}
-      </Animated.ScrollView>
-    </SafeAreaView>
+
+          <FlatList
+            data={popularCourses}
+            renderItem={renderCourseCard}
+            keyExtractor={(item) => item.id.toString()}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.recommendationCoursesList}
+          />
+        </Animated.ScrollView>
+      </SafeAreaView>
+    </GestureHandlerRootView>
   );
 }
 
@@ -166,40 +186,52 @@ const styles = StyleSheet.create({
   scrollContent: {
     paddingBottom: 40,
   },
-  header: {
+  customHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 24,
     paddingVertical: 16,
   },
-  greeting: {
-    fontFamily: 'Poppins-SemiBold',
-    fontSize: 24,
-    color: '#1F1F39',
+  menuButton: {
+    padding: 8,
   },
-  subGreeting: {
-    fontFamily: 'Poppins-Regular',
-    fontSize: 14,
-    color: '#858597',
-    marginTop: 4,
-  },
-  headerIcons: {
-    flexDirection: 'row',
+  statusInfoPlaceholder: {
+    flex: 1,
     alignItems: 'center',
   },
   iconButton: {
-    marginLeft: 16,
+    padding: 8,
     position: 'relative',
   },
   notificationBadge: {
     position: 'absolute',
-    top: 0,
-    right: 0,
+    top: 5,
+    right: 5,
     width: 8,
     height: 8,
     borderRadius: 4,
     backgroundColor: '#FF5454',
+  },
+  searchBarContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginHorizontal: 24,
+    marginTop: 16,
+    backgroundColor: '#F3F3F3',
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+  },
+  searchIcon: {
+    marginRight: 8,
+  },
+  searchInput: {
+    flex: 1,
+    fontFamily: 'Poppins-Regular',
+    fontSize: 16,
+    color: '#1F1F39',
+    paddingVertical: 0,
   },
   banner: {
     marginHorizontal: 24,
@@ -252,8 +284,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 24,
-    marginTop: 32,
+    marginHorizontal: 24,
+    marginTop: 24,
     marginBottom: 16,
   },
   sectionTitle: {
@@ -272,119 +304,95 @@ const styles = StyleSheet.create({
     marginRight: 4,
   },
   categoriesList: {
-    paddingLeft: 24,
-    paddingRight: 8,
+    paddingHorizontal: 24,
+    paddingBottom: 16,
   },
   categoryItem: {
-    paddingHorizontal: 20,
-    paddingVertical: 8,
+    backgroundColor: '#F3F3F3',
     borderRadius: 8,
-    backgroundColor: '#F4F3FD',
+    paddingHorizontal: 16,
+    paddingVertical: 12,
     marginRight: 12,
   },
   activeCategoryItem: {
     backgroundColor: '#3D5CFF',
   },
   categoryItemText: {
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Poppins-Regular',
     fontSize: 14,
     color: '#1F1F39',
   },
   activeCategoryItemText: {
     color: '#FFFFFF',
   },
-  courseCard: {
+  dailyQuoteContainer: {
+    backgroundColor: '#F3F3F3',
     marginHorizontal: 24,
-    marginTop: 16,
-    backgroundColor: '#FFFFFF',
+    marginTop: 24,
+    padding: 24,
     borderRadius: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+    minHeight: 120,
+  },
+  dailyQuoteText: {
+    fontFamily: 'Poppins-Medium',
+    fontSize: 16,
+    color: '#1F1F39',
+    textAlign: 'center',
+  },
+  recommendationCoursesList: {
+    paddingHorizontal: 24,
+    paddingBottom: 16,
+  },
+  courseCard: {
+    width: 250,
+    marginRight: 16,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 8,
     overflow: 'hidden',
+    elevation: 2,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 10,
-    elevation: 2,
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
   },
   courseImage: {
     width: '100%',
     height: 150,
   },
   courseCardContent: {
-    padding: 16,
+    padding: 12,
   },
   courseCardTop: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     marginBottom: 8,
-  },
-  courseCategory: {
-    paddingHorizontal: 12,
-    paddingVertical: 4,
-    backgroundColor: '#F4F3FD',
-    borderRadius: 4,
-  },
-  courseCategoryText: {
-    fontFamily: 'Poppins-Medium',
-    fontSize: 12,
-    color: '#3D5CFF',
   },
   ratingContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginRight:20
   },
   ratingText: {
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Poppins-Regular',
     fontSize: 12,
-    color: '#1F1F39',
+    color: '#858597',
     marginLeft: 4,
   },
   courseTitle: {
-    fontFamily: 'Poppins-SemiBold',
+    fontFamily: 'Poppins-Medium',
     fontSize: 16,
     color: '#1F1F39',
     marginBottom: 8,
   },
-  courseInfo: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 12,
-  },
-  courseInstructor: {
-    fontFamily: 'Poppins-Regular',
-    fontSize: 12,
-    color: '#858597',
-  },
-  lessonContainer: {
-    marginLeft: 12,
-    paddingLeft: 12,
-    borderLeftWidth: 1,
-    borderLeftColor: '#E5E5E5',
-  },
-  lessonText: {
-    fontFamily: 'Poppins-Regular',
-    fontSize: 12,
-    color: '#858597',
-  },
   courseCardBottom: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    // Adjusted for horizontal list item display
   },
   coursePrice: {
-    fontFamily: 'Poppins-Bold',
-    fontSize: 18,
-    color: '#3D5CFF',
-  },
-  bestsellerBadge: {
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    backgroundColor: '#FFD60A',
-    borderRadius: 4,
-  },
-  bestsellerText: {
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Poppins-Regular',
     fontSize: 12,
-    color: '#1F1F39',
+    color: '#3D5CFF',
   },
 });
