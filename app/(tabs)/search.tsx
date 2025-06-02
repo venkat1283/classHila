@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Link } from 'expo-router';
-import { Search as SearchIcon, X, Star } from 'lucide-react-native';
+// import { Search as SearchIcon, X, Star } from 'lucide-react-native';
 import { popularCourses } from '@/data/homeData';
 
 export default function SearchScreen() {
@@ -52,7 +52,7 @@ export default function SearchScreen() {
           <Text style={styles.resultInstructor}>{item.instructor}</Text>
           <View style={styles.resultBottom}>
             <View style={styles.ratingContainer}>
-              <Star size={12} color="#FFC107" fill="#FFC107" />
+              {/* <Star size={12} color="#FF731F" fill="#FF731F" /> */}
               <Text style={styles.ratingText}>{item.rating}</Text>
             </View>
             <Text style={styles.resultPrice}>${item.price}</Text>
@@ -63,14 +63,14 @@ export default function SearchScreen() {
   );
 
   return (
-    <SafeAreaView style={styles.container} edges={['top']}>
+    <SafeAreaView style={styles.container}  edges={['top','bottom']}>
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Search</Text>
       </View>
 
       <View style={styles.searchContainer}>
         <View style={styles.searchInputContainer}>
-          <SearchIcon size={20} color="#858597" />
+          {/* <SearchIcon size={20} color="#858597" /> */}
           <TextInput
             style={styles.searchInput}
             placeholder="Search for courses, instructors..."
@@ -80,7 +80,7 @@ export default function SearchScreen() {
           />
           {searchQuery.length > 0 && (
             <TouchableOpacity onPress={clearSearch} style={styles.clearButton}>
-              <X size={16} color="#858597" />
+              {/* <X size={16} color="#858597" /> */}
             </TouchableOpacity>
           )}
         </View>
@@ -122,7 +122,7 @@ export default function SearchScreen() {
                 style={styles.recentSearchItem}
                 onPress={() => handleSearch(search)}
               >
-                <SearchIcon size={16} color="#858597" />
+                {/* <SearchIcon size={16} color="#858597" /> */}
                 <Text style={styles.recentSearchText}>{search}</Text>
               </TouchableOpacity>
             ))}
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
   },
   headerTitle: {
-    fontFamily: 'Poppins-SemiBold',
+    fontFamily: 'DMSans_SBD',
     fontSize: 24,
     color: '#1F1F39',
   },
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
   searchInput: {
     flex: 1,
     marginLeft: 12,
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'Roboto_RG',
     fontSize: 14,
     color: '#1F1F39',
   },
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
   },
   resultsTitle: {
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Roboto_MD',
     fontSize: 16,
     color: '#1F1F39',
     marginBottom: 16,
@@ -204,13 +204,13 @@ const styles = StyleSheet.create({
     marginLeft: 12,
   },
   resultTitle: {
-    fontFamily: 'Poppins-SemiBold',
+    fontFamily: 'DMSans_SBD',
     fontSize: 14,
     color: '#1F1F39',
     marginBottom: 4,
   },
   resultInstructor: {
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'Roboto_RG',
     fontSize: 12,
     color: '#858597',
     marginBottom: 8,
@@ -225,13 +225,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   ratingText: {
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Roboto_MD',
     fontSize: 12,
     color: '#1F1F39',
     marginLeft: 4,
   },
   resultPrice: {
-    fontFamily: 'Poppins-Bold',
+    fontFamily: 'Roboto_BD',
     fontSize: 14,
     color: '#3D5CFF',
   },
@@ -242,7 +242,7 @@ const styles = StyleSheet.create({
     paddingVertical: 40,
   },
   noResultsText: {
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Roboto_MD',
     fontSize: 16,
     color: '#858597',
     textAlign: 'center',
@@ -258,12 +258,12 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   recentSearchesTitle: {
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Roboto_MD',
     fontSize: 16,
     color: '#1F1F39',
   },
   clearAllText: {
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Roboto_MD',
     fontSize: 14,
     color: '#3D5CFF',
   },
@@ -278,7 +278,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#F4F3FD',
   },
   recentSearchText: {
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'Roboto_RG',
     fontSize: 14,
     color: '#1F1F39',
     marginLeft: 12,

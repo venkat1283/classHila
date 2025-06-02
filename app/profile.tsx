@@ -73,7 +73,7 @@ export default function ProfileScreen() {
   );
 
   return (
-    <SafeAreaView style={styles.container} edges={['top']}>
+    <SafeAreaView style={styles.container}  edges={['top','bottom']}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.header}>
           <Text style={styles.headerTitle}>Profile</Text>
@@ -165,9 +165,9 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
   },
   headerTitle: {
-    fontFamily: 'Poppins-SemiBold',
-    fontSize: 24,
-    color: '#1F1F39',
+    fontFamily: 'Raleway_BD',
+    fontSize: 17,
+    color: '#000',
   },
   settingsButton: {
     padding: 8,
@@ -183,13 +183,13 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   userName: {
-    fontFamily: 'Poppins-SemiBold',
+    fontFamily: 'DMSans_SBD',
     fontSize: 18,
     color: '#1F1F39',
     marginBottom: 4,
   },
   userEmail: {
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'Roboto_RG',
     fontSize: 14,
     color: '#858597',
     marginBottom: 24,
@@ -213,12 +213,12 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   statValue: {
-    fontFamily: 'Poppins-SemiBold',
+    fontFamily: 'DMSans_SBD',
     fontSize: 16,
     color: '#1F1F39',
   },
   statLabel: {
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'Roboto_RG',
     fontSize: 12,
     color: '#858597',
   },
@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#3D5CFF',
   },
   tabButtonText: {
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Roboto_MD',
     fontSize: 14,
     color: '#858597',
   },
@@ -254,7 +254,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   sectionTitle: {
-    fontFamily: 'Poppins-SemiBold',
+    fontFamily: 'DMSans_SBD',
     fontSize: 16,
     color: '#1F1F39',
   },
@@ -263,7 +263,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   seeAllButtonText: {
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Roboto_MD',
     fontSize: 14,
     color: '#3D5CFF',
     marginRight: 4,
@@ -292,7 +292,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   courseTitle: {
-    fontFamily: 'Poppins-SemiBold',
+    fontFamily: 'DMSans_SBD',
     fontSize: 14,
     color: '#1F1F39',
     marginBottom: 8,
@@ -314,7 +314,7 @@ const styles = StyleSheet.create({
     borderRadius: 3,
   },
   progressText: {
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Roboto_MD',
     fontSize: 12,
     color: '#1F1F39',
   },
@@ -327,7 +327,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logoutButtonText: {
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Roboto_MD',
     fontSize: 16,
     color: '#3D5CFF',
   },

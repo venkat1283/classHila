@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Link } from 'expo-router';
-import { Filter, Star } from 'lucide-react-native';
+// import { Filter, Star } from 'lucide-react-native';
 import { popularCourses, categories } from '@/data/homeData';
 
 export default function CoursesScreen() {
@@ -30,7 +30,7 @@ export default function CoursesScreen() {
               <Text style={styles.categoryText}>{item.category}</Text>
             </View>
             <View style={styles.ratingContainer}>
-              <Star size={12} color="#FFC107" fill="#FFC107" />
+              {/* <Star size={12} color="#FF731F" fill="#FF731F" /> */}
               <Text style={styles.ratingText}>{item.rating}</Text>
             </View>
           </View>
@@ -48,11 +48,11 @@ export default function CoursesScreen() {
   );
 
   return (
-    <SafeAreaView style={styles.container} edges={['top']}>
+    <SafeAreaView style={styles.container}  edges={['top','bottom']}>
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Courses</Text>
         <TouchableOpacity style={styles.filterButton}>
-          <Filter size={20} color="#1F1F39" />
+          {/* <Filter size={20} color="#1F1F39" /> */}
           <Text style={styles.filterText}>Filter</Text>
         </TouchableOpacity>
       </View>
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
   },
   headerTitle: {
-    fontFamily: 'Poppins-SemiBold',
+    fontFamily: 'DMSans_SBD',
     fontSize: 24,
     color: '#1F1F39',
   },
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   filterText: {
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Roboto_MD',
     fontSize: 14,
     color: '#1F1F39',
     marginLeft: 8,
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#3D5CFF',
   },
   categoryItemText: {
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Roboto_MD',
     fontSize: 14,
     color: '#1F1F39',
   },
@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   categoryText: {
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Roboto_MD',
     fontSize: 12,
     color: '#3D5CFF',
   },
@@ -198,19 +198,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   ratingText: {
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Roboto_MD',
     fontSize: 12,
     color: '#1F1F39',
     marginLeft: 4,
   },
   courseTitle: {
-    fontFamily: 'Poppins-SemiBold',
+    fontFamily: 'DMSans_SBD',
     fontSize: 16,
     color: '#1F1F39',
     marginBottom: 4,
   },
   instructorName: {
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'Roboto_RG',
     fontSize: 12,
     color: '#858597',
     marginBottom: 8,
@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   price: {
-    fontFamily: 'Poppins-Bold',
+    fontFamily: 'Roboto_BD',
     fontSize: 16,
     color: '#3D5CFF',
   },
@@ -232,7 +232,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   lessonText: {
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'Roboto_RG',
     fontSize: 12,
     color: '#858597',
   },

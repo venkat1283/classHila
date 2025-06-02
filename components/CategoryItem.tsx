@@ -1,6 +1,7 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { Link } from 'expo-router';
 import { ChevronRight } from 'lucide-react-native';
+import images from '@/assets/images';
 
 interface CategoryItemProps {
   item: string;
@@ -15,7 +16,7 @@ const CategoryItem = ({ item }: CategoryItemProps) => (
           <View style={styles.categoryIconPlaceholder} />
           <Text style={styles.categoryListItemText}>{item}</Text>
         </View>
-        <ChevronRight size={20} color="#858597" />
+        <Image source={images.right} style={styles.rightImg} />
       </View>
     </TouchableOpacity>
   </Link>
@@ -27,7 +28,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 16,
-    paddingVertical: 12,
+    paddingTop: 13,
+    paddingBottom:10,
     backgroundColor: '#FFFFFF',
   },
   categoryItemContentWrapper: {
@@ -41,17 +43,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   categoryIconPlaceholder: {
-    width: 30,
-    height: 30,
-    backgroundColor: '#F3F3F3',
-    borderRadius: 8,
+    width: 32,
+    height: 32,
+    backgroundColor: '#F4F4F5',
+    borderRadius: 4,
     marginRight: 12,
   },
   categoryListItemText: {
-    fontFamily: 'Poppins-Regular',
-    fontSize: 16,
-    color: '#1F1F39',
+    fontFamily: 'DMSans_RG',
+    fontSize: 14,
+    color: '#000',
   },
+  rightImg:{
+    width:16,
+    height:16
+  }
 });
 
 export default CategoryItem; 

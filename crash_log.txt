@@ -1,0 +1,89 @@
+--------- beginning of main
+06-02 15:11:15.140 22653 32230 I NearbySharing: Network state changed: NetworkState(isRestricted=false, isOnline=true, isCongested=false, isMetered=false, isWifiConnected=true)
+06-02 15:11:15.387   995  1044 E BatteryDump: !@new_battery_dump : 4154,0,1200,1800,80,355,355,363,0,0,385,363,0,Not-charging,NO_CHARGING,Normal,Good,PDIC,0,Normal,0,0,12900,0x0,0x11010000,0x0,0,0,0000,0000,00000000,0,0,0,0,135,4157,8020,1000,0,
+06-02 15:11:15.397   995   995 I sehhealth-service: updateLrpSysfs: write: 386
+06-02 15:11:15.487  2118  2118 D StatusBarIconController: ignoring old pipeline callbacks, because the new mobile icons are enabled
+--------- beginning of system
+06-02 15:11:15.603  6809  8175 I SDHMS:C : SIOP:: AP:358 BAT:355 USB:0 CHG:363 PA:356 CP:362 WIFI:368 CF:363 BLK:0 SUBBAT:0 SKIN:385 SKINF:369 SKINB:385 LRP:385 LRP2:385 LRF2:369 LRB2:385 AP2:382 CHG2:385 MEM2:383 WIFI2:380 SPK2:364 DNSPK:356 VAP:364 VWIFI:371 
+06-02 15:11:16.166  1326  2788 I EDMNativeHelperService: isFaceRecognitionAllowedEvenCameraBlocked 
+06-02 15:11:16.169  1326  2788 I EDMNativeHelperService: isCameraEnabled
+06-02 15:11:16.169  1326  2788 D EDMNativeHelper: isCameraEnabled
+06-02 15:11:16.170  1326  2788 D EDMNativeHelper: checking for camera in EnterpriseDeviceManagerService
+06-02 15:11:16.170  1326  2788 D EnterpriseDeviceManagerService: isCameraEnabledNative
+06-02 15:11:16.171  1326  2788 D EnterpriseDeviceManagerService: checking for camera in restriction policy
+06-02 15:11:16.171  1326  2788 D RestrictionPolicy: isCameraEnabled ret(true) userId(0) cxtInfo.mCallerUid(1000) cxtInfo.mContainerId(0)
+06-02 15:11:16.278   467   467 D io_stats: !@   8,0 r 44236647 980154685 w 19932701 229452060 d 1924903 263433376 f 1020268 3433395 iot 33527640 0 th 0 0 0 pt 0 inp 0 0 544971.373
+06-02 15:11:16.279   467   467 D io_stats: !@ Write_top(KB): kworker/u16:3(18593) 156 vendor.samsung.(995) 8
+06-02 15:11:17.641  1326  3029 D SemWifiUsabilityStatsMonitor: onWifiUsabilityStats - seqNum 62231, isSameBssidAndFreq true
+06-02 15:11:17.643  1326  1964 D ConnectivityService: notifyType CALLBACK_CAP_CHANGED for [122 WIFI]
+06-02 15:11:17.655  1326  1999 D SemWifiApNsd:Client: lpInterface:wlan0
+06-02 15:11:17.655  1326  1999 D SemWifiSwitchForIndividualAppsService: stopTCPMonitoring : already stopped
+06-02 15:11:17.656  1326  1999 I WifiConnectivityMonitor.NCC: sNetworkCallback(oCC) FULL : 122(valid: true/captive: false)
+06-02 15:11:17.657  7413  7990 I HBD     : g onCapabilitiesChanged network : 122 current network state : wifi 
+06-02 15:11:17.658  1326  1999 I WifiConnectivityMonitor.NCC: [ Transports: WIFI Capabilities: NOT_METERED&INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VPN&VALIDATED&NOT_ROAMING&FOREGROUND&NOT_CONGESTED&NOT_SUSPENDED&NOT_VCN_MANAGED LinkUpBandwidth>=1034Kbps LinkDnBandwidth>=16742Kbps TransportInfo: <SSID: <unknown ssid>, BSSID: 02:00:00:**:**:00, MAC: 02:00:00:**:**:00, IP: /192.***.**.31, Security type: 2, Supplicant state: COMPLETED, Wi-Fi standard: 4, RSSI: -62, Link speed: 39Mbps, Tx Link speed: 39Mbps, Max Supported Tx Link speed: 72Mbps, Rx Link speed: 72Mbps, Max Supported Rx Link speed: 72Mbps, Frequency: 2412MHz, Net ID: -1, Metered hint: false, score: 60, isUsable: true, CarrierMerged: false, SubscriptionId: -1, IsPrimary: 1, Trusted: true, Restricted: false, Ephemeral: false, OEM paid: false, OEM private: false, OSU AP: false, FQDN: <none>, Provider friendly name: <none>, Requesting package name: <none><none>MLO Information: , Is TID-To-Link negotiation supported by the AP: false, AP MLD Address: <none>, AP MLO Link Id: <none>, AP MLO Affiliated links: <none>> SignalStrength: -62 AdminUids: [1000] SSID: "VenkatWifi" UnderlyingNetworks: Null]
+06-02 15:11:17.658  1326  2054 D WifiConnectivityMonitor: HANDLE_ON_CAPABILITIES_CHANGED
+06-02 15:11:17.658  1326  2054 I WifiConnectivityMonitor: determineMode : MODE_NON_SWITCHABLE_BY_POOR_NETWORK_DETECTION_DISABLED
+06-02 15:11:17.659  1326  2054 D OpenNetworkQos[4.00]: updateBssidNoInternet: mBssidNoInternet = false
+06-02 15:11:17.659  1326  2054 D OpenNetworkQos[4.00]: getOpenNetworkQosNoInternetStatus: false
+06-02 15:11:17.659  1326  2054 D OpenNetworkQos[4.00]: getOpenNetworkQosScores: 23 26 26 
+06-02 15:11:17.660  1326  2054 D KNOX_MDM_SettingsProvider: isChangeAllowed() : name = wifi_wcm_qos_sharing_score_summary
+06-02 15:11:17.669 12489 12562 I BugleRcsEngine: handleMessage processing message:[NOTIFY_UPTIME_IGNORE_STATE_CHANGED] with [non-null]:RcsEngineImpl reference [CONTEXT log_prefix="RcsEngineImpl[DUAL_REG]:[5db9142b-68fa]>Handler" thread_id=162 ]
+06-02 15:11:17.670  2118  2118 D WifiInteractor: get wifiIconGroup ePDGConnected : false
+06-02 15:11:17.670  2118  2118 D WifiInteractor: get wifiIconGroup ePDGConnected : false
+06-02 15:11:17.670 12489 12536 I BugleRcsEngine: Connected state: [1], networkType: [WIFI] [CONTEXT thread_id=151 ]
+06-02 15:11:17.671  2118  2118 D StatusBarIconController: ignoring old pipeline callback because the new wifi icon is enabled
+06-02 15:11:17.688  1037  1189 I VSyncReactor: Current= 60, Period= 60, hwcPeriod= 60
+06-02 15:11:17.690 12489 12562 I BugleRcsEngine: Rcs is enabled from user settings: true [CONTEXT log_prefix="ProvisioningEngineDataRetriever" thread_id=162 ]
+06-02 15:11:17.760  7413  7413 I HBD     : g onCapabilityChanged  setNetworkState currentNetworkState : wifi 
+06-02 15:11:17.833 22653 32230 I NearbyMediums: No BLE Fast/GATT advertisements found in the latest cycle.
+06-02 15:11:17.844 25018 25018 I wpa_supplicant: Heartbeat 8579
+06-02 15:11:18.041  2118  2118 D StatusBarIconController: ignoring old pipeline callbacks, because the new mobile icons are enabled
+06-02 15:11:18.171 22653 32230 I NearbySharing: Network state changed: NetworkState(isRestricted=false, isOnline=true, isCongested=false, isMetered=false, isWifiConnected=true)
+06-02 15:11:18.280   467   467 D io_stats: !@   8,0 r 44236647 980154685 w 19932704 229452084 d 1924903 263433376 f 1020268 3433395 iot 33527648 0 th 0 0 0 pt 0 inp 0 0 544973.375
+06-02 15:11:18.968 12434 12434 I NotificationManager: com.honeygain.make.money: notify(1, null, Notification(channel=MkwemUhqnsqPOjoNajqjwebKJSjbq54wejbznasNsdfsalk465dsff4d shortcut=null contentView=com.honeygain.make.money/0x7f0d00a0 vibrate=null sound=null defaults=0x0 flags=0x8 color=0x00000000 vis=PRIVATE semFlags=0x0 semPriority=0 semMissedCount=0)) as user
+06-02 15:11:19.175  1326  1536 I EDMNativeHelperService: isFaceRecognitionAllowedEvenCameraBlocked 
+06-02 15:11:19.177  1326  2788 I EDMNativeHelperService: isCameraEnabled
+06-02 15:11:19.177  1326  2788 D EDMNativeHelper: isCameraEnabled
+06-02 15:11:19.178  1326  2788 D EDMNativeHelper: checking for camera in EnterpriseDeviceManagerService
+06-02 15:11:19.178  1326  2788 D EnterpriseDeviceManagerService: isCameraEnabledNative
+06-02 15:11:19.178  1326  2788 D EnterpriseDeviceManagerService: checking for camera in restriction policy
+06-02 15:11:19.178  1326  2788 D RestrictionPolicy: isCameraEnabled ret(true) userId(0) cxtInfo.mCallerUid(1000) cxtInfo.mContainerId(0)
+06-02 15:11:19.180  1326  1326 I Telecom:SamsungTelecomServiceImpl: isInManagedCall - callingPackage : android / callingUser : UserHandle{0} / hasCrossUserAccess : true
+06-02 15:11:19.204  2118  2118 D BubblesManager: onEntryUpdated : shouldBubbleUp=false ,key=0|com.honeygain.make.money|1|null|10820
+06-02 15:11:19.205  2118  2118 D InterruptionStateProvider:  no Heads up : edgelighting enabled app. 0|com.honeygain.make.money|1|null|10820
+06-02 15:11:19.206  2569  2569 I HoneySpace.NotificationListener: onNotificationPosted com.honeygain.make.money: 0|com.honeygain.make.money|1|null|10820: 0
+06-02 15:11:19.206  2569  2569 I HoneySpace.BadgeDataSourceImpl: Get notification count. PackageKey(packageName=com.honeygain.make.money, user=UserHandle{0}) - forceBadgeCount: false, notification listener: 1, badge provider: 0
+06-02 15:11:19.207  2118  2118 D InterruptionStateProvider:  no Heads up : edgelighting enabled app. 0|com.honeygain.make.money|1|null|10820
+06-02 15:11:19.207  2569 29266 I HoneySpace.BadgeDataSourceImpl: Get notification count. PackageKey(packageName=com.google.android.youtube, user=UserHandle{0}) - forceBadgeCount: false, notification listener: 2, badge provider: 35
+06-02 15:11:19.207  2569 29266 I HoneySpace.BadgeDataSourceImpl: Get notification count. PackageKey(packageName=com.google.android.apps.photos, user=UserHandle{0}) - forceBadgeCount: false, notification listener: 2, badge provider: 0
+06-02 15:11:19.208  2569 29243 I HoneySpace.PackageEventOperator: [ApplistViewModel] badge count is updated. com.honeygain.make.money/com.honeygain.app.ui.splash.SplashActivity#UserHandle{0}|272 : 1
+06-02 15:11:19.209  2569 29243 I HoneySpace.BadgeDataSourceImpl: Get notification count. PackageKey(packageName=com.google.android.youtube, user=UserHandle{0}) - forceBadgeCount: false, notification listener: 2, badge provider: 35
+06-02 15:11:19.210  2569 29243 I HoneySpace.BadgeDataSourceImpl: Get notification count. PackageKey(packageName=com.google.android.apps.photos, user=UserHandle{0}) - forceBadgeCount: false, notification listener: 2, badge provider: 0
+06-02 15:11:19.217  1037  1189 I VSyncReactor: Current= 60, Period= 60, hwcPeriod= 60
+06-02 15:11:19.253  2118  2118 I AODNotificationManager: updateNotification() 
+06-02 15:11:19.286  2118  2197 D LocalImageResolver: Couldn't use ImageDecoder for drawable, falling back to non-resized load.
+06-02 15:11:19.291  2118  2118 D LocalImageResolver: Couldn't use ImageDecoder for drawable, falling back to non-resized load.
+06-02 15:11:19.297  2118  2197 D LocalImageResolver: Couldn't use ImageDecoder for drawable, falling back to non-resized load.
+06-02 15:11:19.303  2118  2118 D LocalImageResolver: Couldn't use ImageDecoder for drawable, falling back to non-resized load.
+06-02 15:11:19.319  2118  2118 I AODNotificationManager: updateNotification() 
+06-02 15:11:19.439  1326  1385 E Watchdog: !@Sync: 18134 heap: 105 / 123 FD: 1358 [2025-06-02 15:11:19.438]
+06-02 15:11:20.281   467   467 D io_stats: !@ Write_top(KB): kworker/u16:0(32238) 24
+06-02 15:11:20.605  2118  2118 D StatusBarIconController: ignoring old pipeline callbacks, because the new mobile icons are enabled
+06-02 15:11:20.667  1326  3029 D SemWifiUsabilityStatsMonitor: onWifiUsabilityStats - seqNum 62232, isSameBssidAndFreq true
+06-02 15:11:20.669  1326  2032 I SemWifiLinkQualityMonitor: Link stat: 1373 / 0 / 1.30 (13) / 57 / -61.0 || 100.0 : 57.00 / B (B) || 0.21 ms / 37.67 Mbps / N || 0 / N / 4 Y / 0 Y
+06-02 15:11:20.926  6809  6809 I SDHMS:LOAD: type: LoadsFreqs, value: 0:0:0:604500:1728000:533000:599600:1824000:533000:20:208:0
+06-02 15:11:21.885  2118  2118 D StatusBarIconController: ignoring old pipeline callbacks, because the new mobile icons are enabled
+06-02 15:11:22.074  1326  1387 I UsageStatsService: User[0] Flushing usage stats to disk
+06-02 15:11:22.182  1326  2788 I EDMNativeHelperService: isFaceRecognitionAllowedEvenCameraBlocked 
+06-02 15:11:22.184  1326  4016 I EDMNativeHelperService: isCameraEnabled
+06-02 15:11:22.185  1326  4016 D EDMNativeHelper: isCameraEnabled
+06-02 15:11:22.185  1326  4016 D EDMNativeHelper: checking for camera in EnterpriseDeviceManagerService
+06-02 15:11:22.185  1326  4016 D EnterpriseDeviceManagerService: isCameraEnabledNative
+06-02 15:11:22.186  1326  4016 D EnterpriseDeviceManagerService: checking for camera in restriction policy
+06-02 15:11:22.186  1326  4016 D RestrictionPolicy: isCameraEnabled ret(true) userId(0) cxtInfo.mCallerUid(1000) cxtInfo.mContainerId(0)
+06-02 15:11:22.283   467   467 D io_stats: !@   8,0 r 44236672 980154785 w 19932725 229452624 d 1924903 263433376 f 1020272 3433402 iot 33527744 0 th 0 0 0 pt 0 inp 0 0 544977.378
+06-02 15:11:22.903 22653 32464 D ConnectivityManager: StackLog: [android.net.ConnectivityManager.reportNetworkConnectivity(ConnectivityManager.java:3660)] [bozh.a(:com.google.android.gms@251933029@25.19.33 (190400-762115751):15)] [bpbq.n(:com.google.android.gms@251933029@25.19.33 (190400-762115751):6)] [bpaj.a(:com.google.android.gms@251933029@25.19.33 (190400-762115751):616)] [bpbd.run(:com.google.android.gms@251933029@25.19.33 (190400-762115751):15)] [bpcb.run(:com.google.android.gms@251933029@25.19.33 (190400-762115751):5)] [frty.run(:com.google.android.gms@251933029@25.19.33 (190400-762115751):21)] [ayfm.c(:com.google.android.gms@251933029@25.19.33 (190400-762115751):50)] [ayfm.run(:com.google.android.gms@251933029@25.19.33 (190400-762115751):70)] [java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)] [java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)] [aylb.run(:com.google.android.gms@251933029@25.19.33 (190400-762115751):8)] [java.lang.Thread.run(Thread.java:1012)]
+06-02 15:11:22.909 22653 32464 I AlarmManager: setExactAndAllowWhileIdle [name: GCM_HB_ALARM type: 2 triggerAtMillis: 1504787250]
+06-02 15:11:22.909  1326  4016 D AlarmManager: force change alarm method to setWindow() callingUid=10190, sourcePackage=com.google.android.gms, action=com.google.android.gms.gcm.HEARTBEAT_ALARM, origTriggerAtTime=1504787250, triggerAtTime=1504642251, windowLength=144999
+06-02 15:11:22.926 22653 31653 I AlarmManager: setExactAndAllowWhileIdle [name: FcmRetry type: 2 triggerAtMillis: 1504617264]
+06-02 15:11:22.927  1326  4016 W ProcessStats: Tracking association SourceState{b2fba73 com.sec.android.app.launcher/10118 BTop #1098998} whose proc state 2 is better than process ProcessState{f80c436 com.google.android.googlequicksearchbox:search/10192 pkg=com.google.android.googlequicksearchbox} proc state 14 (128 skipped)

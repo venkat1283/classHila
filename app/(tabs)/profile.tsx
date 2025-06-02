@@ -9,7 +9,7 @@ import {
   ScrollView
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Settings, ChevronRight, BookOpen, Award, Clock } from 'lucide-react-native';
+// import { Settings, ChevronRight, BookOpen, Award, Clock } from 'lucide-react-native';
 import { popularCourses } from '@/data/homeData';
 
 export default function ProfileScreen() {
@@ -18,9 +18,11 @@ export default function ProfileScreen() {
   const myCourses = popularCourses.slice(0, 2);
   
   const stats = [
-    { icon: <BookOpen size={20} color="#3D5CFF" />, value: '12', label: 'Courses' },
-    { icon: <Award size={20} color="#3D5CFF" />, value: '8', label: 'Certificates' },
-    { icon: <Clock size={20} color="#3D5CFF" />, value: '80', label: 'Hours' },
+    // { icon: <BookOpen size={20} color="#3D5CFF" />, value: '12', label: 'Courses' },
+    // { icon: <Award size={20} color="#3D5CFF" />, value: '8', label: 'Certificates' },
+    // { icon: <Clock size={20} color="#3D5CFF" />, value: '80', label: 'Hours' },
+    {},
+    {}
   ];
   
   const renderCourseItem = ({ item, index }) => (
@@ -48,12 +50,12 @@ export default function ProfileScreen() {
   );
 
   return (
-    <SafeAreaView style={styles.container} edges={['top']}>
+    <SafeAreaView style={styles.container}  edges={['top','bottom']}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.header}>
           <Text style={styles.headerTitle}>Profile</Text>
           <TouchableOpacity style={styles.settingsButton}>
-            <Settings size={24} color="#1F1F39" />
+            {/* <Settings size={24} color="#1F1F39" /> */}
           </TouchableOpacity>
         </View>
         
@@ -69,7 +71,7 @@ export default function ProfileScreen() {
             {stats.map((stat, index) => (
               <View key={index} style={styles.statItem}>
                 <View style={styles.statIconContainer}>
-                  {stat.icon}
+                  {/* {stat.icon} */}
                 </View>
                 <Text style={styles.statValue}>{stat.value}</Text>
                 <Text style={styles.statLabel}>{stat.label}</Text>
@@ -105,7 +107,7 @@ export default function ProfileScreen() {
           <Text style={styles.sectionTitle}>In Progress</Text>
           <TouchableOpacity style={styles.seeAllButton}>
             <Text style={styles.seeAllButtonText}>See All</Text>
-            <ChevronRight size={16} color="#3D5CFF" />
+            {/* <ChevronRight size={16} color="#3D5CFF" /> */}
           </TouchableOpacity>
         </View>
         
@@ -140,7 +142,7 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
   },
   headerTitle: {
-    fontFamily: 'Poppins-SemiBold',
+    fontFamily: 'DMSans_SBD',
     fontSize: 24,
     color: '#1F1F39',
   },
@@ -158,13 +160,13 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   userName: {
-    fontFamily: 'Poppins-SemiBold',
+    fontFamily: 'DMSans_SBD',
     fontSize: 18,
     color: '#1F1F39',
     marginBottom: 4,
   },
   userEmail: {
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'Roboto_RG',
     fontSize: 14,
     color: '#858597',
     marginBottom: 24,
@@ -188,12 +190,12 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   statValue: {
-    fontFamily: 'Poppins-SemiBold',
+    fontFamily: 'DMSans_SBD',
     fontSize: 16,
     color: '#1F1F39',
   },
   statLabel: {
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'Roboto_RG',
     fontSize: 12,
     color: '#858597',
   },
@@ -214,7 +216,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#3D5CFF',
   },
   tabButtonText: {
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Roboto_MD',
     fontSize: 14,
     color: '#858597',
   },
@@ -229,7 +231,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   sectionTitle: {
-    fontFamily: 'Poppins-SemiBold',
+    fontFamily: 'DMSans_SBD',
     fontSize: 16,
     color: '#1F1F39',
   },
@@ -238,7 +240,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   seeAllButtonText: {
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Roboto_MD',
     fontSize: 14,
     color: '#3D5CFF',
     marginRight: 4,
@@ -267,7 +269,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   courseTitle: {
-    fontFamily: 'Poppins-SemiBold',
+    fontFamily: 'DMSans_SBD',
     fontSize: 14,
     color: '#1F1F39',
     marginBottom: 8,
@@ -289,7 +291,7 @@ const styles = StyleSheet.create({
     borderRadius: 3,
   },
   progressText: {
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Roboto_MD',
     fontSize: 12,
     color: '#1F1F39',
   },
@@ -302,7 +304,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logoutButtonText: {
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Roboto_MD',
     fontSize: 16,
     color: '#3D5CFF',
   },

@@ -9,16 +9,35 @@ import {
   FlatList,
   Animated
 } from 'react-native';
-import { Link } from 'expo-router';
+import { Link, useRouter, useLocalSearchParams, usePathname } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Search, Bell, ChevronRight, Star } from 'lucide-react-native';
+// import { Search, Bell, ChevronRight, Star, Home, BookOpen, Heart } from 'lucide-react-native';
 import { popularCourses, categories } from '@/data/homeData';
+
+interface Course {
+  id: string;
+  image: string;
+  category: string;
+  rating: number;
+  title: string;
+  instructor: string;
+  lessons: number;
+  price: number;
+  isBestseller: boolean;
+}
 
 export default function HomeScreen() {
   const [activeCategory, setActiveCategory] = useState('All');
   const scrollY = useRef(new Animated.Value(0)).current;
+  const router = useRouter();
+  const pathname = usePathname();
 
-  const renderCourseCard = ({ item }) => (
+  const activeTab = pathname === '/(tabs)' || pathname === '/(tabs)/index' ? 'Home'
+                    : pathname === '/(tabs)/myCoursesScreen' ? 'My Courses'
+                    : pathname === '/(tabs)/myFavouritesScreen' ? 'Favorites'
+                    : 'Home';
+
+  const renderCourseCard = ({ item }: { item: Course }) => (
     <Link href={`/course/${item.id}`} asChild>
       <TouchableOpacity style={styles.courseCard}>
         <Image 
@@ -32,7 +51,7 @@ export default function HomeScreen() {
               <Text style={styles.courseCategoryText}>{item.category}</Text>
             </View>
             <View style={styles.ratingContainer}>
-              <Star size={12} color="#FFC107" fill="#FFC107" />
+              {/* <Star size={12} color="#FF731F" fill="#FF731F" /> */}
               <Text style={styles.ratingText}>{item.rating}</Text>
             </View>
           </View>
@@ -56,15 +75,15 @@ export default function HomeScreen() {
     </Link>
   );
 
-  const renderCategoryItem = ({ item }) => (
+  const renderCategoryItem = ({ item }: { item: string }) => (
     <TouchableOpacity
       style={[
-        styles.categoryItem, 
+        styles.categoryItem,
         activeCategory === item && styles.activeCategoryItem
       ]}
       onPress={() => setActiveCategory(item)}
     >
-      <Text 
+      <Text
         style={[
           styles.categoryItemText,
           activeCategory === item && styles.activeCategoryItemText
@@ -76,7 +95,7 @@ export default function HomeScreen() {
   );
 
   return (
-    <SafeAreaView style={styles.container} edges={['top']}>
+    <SafeAreaView style={styles.container}  edges={['top','bottom']}>
       <Animated.ScrollView
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
@@ -93,10 +112,10 @@ export default function HomeScreen() {
           </View>
           <View style={styles.headerIcons}>
             <TouchableOpacity style={styles.iconButton}>
-              <Search size={24} color="#1F1F39" />
+              {/* <Search size={24} color="#1F1F39" /> */}
             </TouchableOpacity>
             <TouchableOpacity style={styles.iconButton}>
-              <Bell size={24} color="#1F1F39" />
+              {/* <Bell size={24} color="#1F1F39" /> */}
               <View style={styles.notificationBadge} />
             </TouchableOpacity>
           </View>
@@ -123,7 +142,7 @@ export default function HomeScreen() {
           <Text style={styles.sectionTitle}>Categories</Text>
           <TouchableOpacity style={styles.seeAllButton}>
             <Text style={styles.seeAllButtonText}>See All</Text>
-            <ChevronRight size={16} color="#3D5CFF" />
+            {/* <ChevronRight size={16} color="#3D5CFF" /> */}
           </TouchableOpacity>
         </View>
 
@@ -141,7 +160,7 @@ export default function HomeScreen() {
           <Text style={styles.sectionTitle}>Popular Courses</Text>
           <TouchableOpacity style={styles.seeAllButton}>
             <Text style={styles.seeAllButtonText}>See All</Text>
-            <ChevronRight size={16} color="#3D5CFF" />
+            {/* <ChevronRight size={16} color="#3D5CFF" /> */}
           </TouchableOpacity>
         </View>
 
@@ -159,6 +178,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FFFFFF',
+    position: 'relative',
   },
   scrollContent: {
     paddingBottom: 40,
@@ -171,12 +191,12 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
   },
   greeting: {
-    fontFamily: 'Poppins-SemiBold',
+    fontFamily: 'DMSans_SBD',
     fontSize: 24,
     color: '#1F1F39',
   },
   subGreeting: {
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'Roboto_RG',
     fontSize: 14,
     color: '#858597',
     marginTop: 4,
@@ -196,7 +216,7 @@ const styles = StyleSheet.create({
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: '#FF5454',
+    backgroundColor: '#FF731F',
   },
   banner: {
     marginHorizontal: 24,
@@ -222,13 +242,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   bannerTitle: {
-    fontFamily: 'Poppins-Bold',
+    fontFamily: 'Roboto_BD',
     fontSize: 20,
     color: '#FFFFFF',
     marginBottom: 8,
   },
   bannerDescription: {
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'Roboto_RG',
     fontSize: 14,
     color: '#FFFFFF',
     marginBottom: 16,
@@ -241,7 +261,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
   bannerButtonText: {
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Roboto_MD',
     fontSize: 14,
     color: '#3D5CFF',
   },
@@ -254,7 +274,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   sectionTitle: {
-    fontFamily: 'Poppins-SemiBold',
+    fontFamily: 'DMSans_SBD',
     fontSize: 18,
     color: '#1F1F39',
   },
@@ -263,7 +283,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   seeAllButtonText: {
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Roboto_MD',
     fontSize: 14,
     color: '#3D5CFF',
     marginRight: 4,
@@ -283,7 +303,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#3D5CFF',
   },
   categoryItemText: {
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Roboto_MD',
     fontSize: 14,
     color: '#1F1F39',
   },
@@ -322,7 +342,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   courseCategoryText: {
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Roboto_MD',
     fontSize: 12,
     color: '#3D5CFF',
   },
@@ -331,13 +351,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   ratingText: {
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Roboto_MD',
     fontSize: 12,
     color: '#1F1F39',
     marginLeft: 4,
   },
   courseTitle: {
-    fontFamily: 'Poppins-SemiBold',
+    fontFamily: 'DMSans_SBD',
     fontSize: 16,
     color: '#1F1F39',
     marginBottom: 8,
@@ -348,7 +368,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   courseInstructor: {
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'Roboto_RG',
     fontSize: 12,
     color: '#858597',
   },
@@ -359,7 +379,7 @@ const styles = StyleSheet.create({
     borderLeftColor: '#E5E5E5',
   },
   lessonText: {
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'Roboto_RG',
     fontSize: 12,
     color: '#858597',
   },
@@ -369,7 +389,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   coursePrice: {
-    fontFamily: 'Poppins-Bold',
+    fontFamily: 'Roboto_BD',
     fontSize: 18,
     color: '#3D5CFF',
   },
@@ -380,7 +400,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   bestsellerText: {
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Roboto_MD',
     fontSize: 12,
     color: '#1F1F39',
   },

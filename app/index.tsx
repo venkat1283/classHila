@@ -10,11 +10,13 @@ import {
   Animated,
   Platform
 } from 'react-native';
-import { Link } from 'expo-router';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { Search, Bell, ChevronRight, Star, Menu } from 'lucide-react-native';
+import { Link, useRouter, usePathname } from 'expo-router';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Search, Bell, ChevronRight, Star, Menu, Home, BookOpen, Heart } from 'lucide-react-native';
 import { popularCourses, categories } from '@/data/homeData';
 import { TextInput, GestureHandlerRootView } from 'react-native-gesture-handler';
+import images from '@/assets/images';
+import CustomBottomNavigationView from './components/CustomBottomNavigationView';
 
 // Define types for data
 interface Course {
@@ -30,17 +32,27 @@ interface Course {
   duration: string; // Added missing property
   level: string; // Added missing property
   description: string; // Added missing property
+  soldCount: number; // Add soldCount property
   // Removed 'sold' property as it's missing in the data
 }
 
 type Category = string; // Assuming category item is a string
 
 export default function HomeScreen() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const insets = useSafeAreaInsets();
+
   const [activeCategory, setActiveCategory] = useState<Category>('All');
   const scrollY = useRef(new Animated.Value(0)).current;
 
+  const activeTab = pathname === '/index' ? 'Home'
+    : pathname === '/myCoursesScreen' ? 'My Courses'
+    : pathname === '/myFavouritesScreen' ? 'Favorites'
+    : 'Home';
+
   const renderCourseCard = ({ item }: { item: Course }) => (
-    <Link href={`/course/${item.id}`} asChild>
+    <Link href={`/courseDetails`} asChild>
       <TouchableOpacity style={styles.courseCard}>
         <Image 
           source={{ uri: item.image }} 
@@ -48,131 +60,124 @@ export default function HomeScreen() {
           resizeMode="cover"
         />
         <View style={styles.courseCardContent}>
-          <View style={styles.courseCardTop}>
+          <Text style={styles.courseTitle} numberOfLines={2}>{item.title}</Text>
+          <View style={styles.ratingAndSoldContainer}>
             <View style={styles.ratingContainer}>
-              <Star size={12} color="#FFC107" fill="#FFC107" />
+              <Star size={12} color="#FF731F" fill="#FF731F" />
               <Text style={styles.ratingText}>{item.rating}</Text>
             </View>
+            <Text style={styles.soldCountText}>{item.soldCount} Sold</Text>
           </View>
-          <Text style={styles.courseTitle} numberOfLines={2}>{item.title}</Text>
-          <View style={styles.courseCardBottom}>
-            <Text style={styles.coursePrice}>{item.lessons} courses</Text>
-          </View>
+          <Text style={styles.coursePrice}>{item.lessons} courses</Text>
         </View>
       </TouchableOpacity>
     </Link>
   );
 
   const renderCategoryItem = ({ item }: { item: Category }) => (
-    <TouchableOpacity
-      style={[
-        styles.categoryItem, 
-        activeCategory === item && styles.activeCategoryItem
-      ]}
-      onPress={() => setActiveCategory(item)}
-    >
-      <Text 
+    <Link href={{ pathname: "/categoryDetails", params: { category: item } }} asChild>
+    <TouchableOpacity style={styles.categoryItemContainer}>
+      <View
+        style={[
+          styles.categoryPlaceholder,
+          activeCategory === item && styles.activeCategoryPlaceholder,
+        ]}
+      />
+      <Text
         style={[
           styles.categoryItemText,
-          activeCategory === item && styles.activeCategoryItemText
+          activeCategory === item && styles.activeCategoryItemText,
         ]}
       >
         {item}
       </Text>
     </TouchableOpacity>
+    </Link>
   );
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <SafeAreaView style={styles.container} edges={['top']}>
-        <Animated.ScrollView
-          contentContainerStyle={styles.scrollContent}
-          showsVerticalScrollIndicator={false}
-          onScroll={Animated.event(
-            [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-            { useNativeDriver: false }
-          )}
-          scrollEventThrottle={16}
-        >
-          <View style={styles.customHeader}>
-            <TouchableOpacity style={styles.menuButton}>
-              <Menu size={24} color="#1F1F39" />
-            </TouchableOpacity>
-            <View style={styles.statusInfoPlaceholder}>
-              {/* Icons or Text can be added here if functionality is implemented later */}
-            </View>
-            <TouchableOpacity style={styles.iconButton}>
-              <Bell size={24} color="#FF5454" />
-              {/* Notification badge if needed */}
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.searchBarContainer}>
-            <Search size={20} color="#858597" style={styles.searchIcon} />
-            <TextInput
-              style={styles.searchInput}
-              placeholder="Search"
-              placeholderTextColor="#858597"
-            />
-          </View>
-{/* 
-          <View style={styles.banner}>
-            <Image 
-              source={{ uri: 'https://images.pexels.com/photos/4144100/pexels-photo-4144100.jpeg' }} 
-              style={styles.bannerImage}
-              resizeMode="cover"
-            />
-            <View style={styles.bannerContent}>
-              <Text style={styles.bannerTitle}>New Course!</Text>
-              <Text style={styles.bannerDescription}>Find out the best course for you</Text>
-              <TouchableOpacity style={styles.bannerButton}>
-                <Text style={styles.bannerButtonText}>Join Course</Text>
+      <SafeAreaView style={styles.container}  edges={['top','bottom']}>
+        <View style={styles.contentContainer}>
+          <Animated.ScrollView
+            contentContainerStyle={[styles.scrollContent, { paddingBottom: 80 }]}
+            showsVerticalScrollIndicator={false}
+            onScroll={Animated.event(
+              [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+              { useNativeDriver: false }
+            )}
+            scrollEventThrottle={16}
+          >
+            <View style={styles.customHeader}>
+              <TouchableOpacity style={styles.menuButton}>
+                <Image source={images.burgerMenu} style={styles.menuImg} />
+              </TouchableOpacity>
+              <View style={styles.statusInfoPlaceholder}>
+                {/* Icons or Text can be added here if functionality is implemented later */}
+              </View>
+              <TouchableOpacity style={styles.iconButton}>
+                <Image source={images.bell} style={styles.notifImg} />
+                {/* Notification badge if needed */}
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.profileImageContainer} onPress={() => router.push('/profileScreen')}>
+              <Image source={images.emptyProfileImg} style={styles.menuImg} />
               </TouchableOpacity>
             </View>
-          </View> */}
 
-          <View style={styles.sectionHeader}>
-            <Text style={styles.sectionTitle}>Categories</Text>
-            <Link href="/categories" asChild>
-              <TouchableOpacity style={styles.seeAllButton}>
-                <Text style={styles.seeAllButtonText}>See All</Text>
-                <ChevronRight size={16} color="#3D5CFF" />
-              </TouchableOpacity>
-            </Link>
-          </View>
+            <View style={styles.searchBarContainer}>
+            <Image source={images.search} style={styles.notifImg} />
+              <TextInput
+                style={styles.searchInput}
+                placeholder="Search"
+                placeholderTextColor="#858597"
+              />
+            </View>
 
-          <FlatList
-            data={categories}
-            renderItem={renderCategoryItem}
-            keyExtractor={(item) => item}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.categoriesList}
-          />
+            <View style={styles.sectionHeader}>
+              <Text style={styles.sectionTitle}>Categories</Text>
+              <Link href="/categories" asChild>
+                <TouchableOpacity style={styles.seeAllButton}>
+                  <Text style={styles.seeAllButtonText}>See All</Text>
+                  {/* <ChevronRight size={16} color="#FF731F" /> */}
+                </TouchableOpacity>
+              </Link>
+            </View>
 
-          <View style={styles.dailyQuoteContainer}>
-            <Text style={styles.dailyQuoteText}>Daily Quote</Text>
-          </View>
+            <FlatList
+              data={categories}
+              renderItem={renderCategoryItem}
+              keyExtractor={(item) => item}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.categoriesList}
+            />
 
-          <View style={styles.sectionHeader}>
-            <Text style={styles.sectionTitle}>Recommendation Course</Text>
-            <Link href="/courses" asChild>
-              <TouchableOpacity style={styles.seeAllButton}>
-                <Text style={styles.seeAllButtonText}>See All</Text>
-                <ChevronRight size={16} color="#3D5CFF" />
-              </TouchableOpacity>
-            </Link>
-          </View>
+            <View style={styles.dailyQuoteContainer}>
+              <Text style={styles.dailyQuoteText}>Daily Quote</Text>
+            </View>
 
-          <FlatList
-            data={popularCourses}
-            renderItem={renderCourseCard}
-            keyExtractor={(item) => item.id.toString()}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.recommendationCoursesList}
-          />
-        </Animated.ScrollView>
+            <View style={styles.sectionHeader}>
+              <Text style={styles.sectionTitle}>Recommendation Course</Text>
+              <Link href="/recommendationCourses" asChild>
+                <TouchableOpacity style={styles.seeAllButton}>
+                  <Text style={styles.seeAllButtonText}>See All</Text>
+                  {/* <ChevronRight size={16} color="#FF731F" /> */}
+                </TouchableOpacity>
+              </Link>
+            </View>
+
+            <FlatList
+              data={popularCourses}
+              renderItem={renderCourseCard}
+              keyExtractor={(item) => item.id.toString()}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.recommendationCoursesList}
+            />
+          </Animated.ScrollView>
+        </View>
+        <CustomBottomNavigationView activeTab={activeTab} />
+
       </SafeAreaView>
     </GestureHandlerRootView>
   );
@@ -183,8 +188,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FFFFFF',
   },
+  contentContainer: {
+    flex: 1,
+  },
   scrollContent: {
-    paddingBottom: 40,
+    // paddingBottom: 100, // Removed static padding
   },
   customHeader: {
     flexDirection: 'row',
@@ -194,7 +202,19 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
   },
   menuButton: {
-    padding: 8,
+  },
+  menuImg:{
+    width:24,
+    height:24,
+    resizeMode:'cover'
+  },
+  notifImg:{
+    width:22,
+    height:22
+  },
+  searchImg:{
+    width:24,
+    height:24
   },
   statusInfoPlaceholder: {
     flex: 1,
@@ -203,22 +223,14 @@ const styles = StyleSheet.create({
   iconButton: {
     padding: 8,
     position: 'relative',
-  },
-  notificationBadge: {
-    position: 'absolute',
-    top: 5,
-    right: 5,
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    backgroundColor: '#FF5454',
+    marginLeft: 8,
   },
   searchBarContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     marginHorizontal: 24,
-    marginTop: 16,
-    backgroundColor: '#F3F3F3',
+    marginTop: 8,
+    backgroundColor: '#F2F2F7',
     borderRadius: 8,
     paddingHorizontal: 12,
     paddingVertical: 8,
@@ -228,8 +240,8 @@ const styles = StyleSheet.create({
   },
   searchInput: {
     flex: 1,
-    fontFamily: 'Poppins-Regular',
-    fontSize: 16,
+    fontFamily: 'Roboto_RG',
+    fontSize: 12,
     color: '#1F1F39',
     paddingVertical: 0,
   },
@@ -257,13 +269,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   bannerTitle: {
-    fontFamily: 'Poppins-Bold',
+    fontFamily: 'Roboto_BD',
     fontSize: 20,
     color: '#FFFFFF',
     marginBottom: 8,
   },
   bannerDescription: {
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'Roboto_RG',
     fontSize: 14,
     color: '#FFFFFF',
     marginBottom: 16,
@@ -276,7 +288,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
   bannerButtonText: {
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Roboto_MD',
     fontSize: 14,
     color: '#3D5CFF',
   },
@@ -284,12 +296,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginHorizontal: 24,
-    marginTop: 24,
+    paddingHorizontal: 24,
+    marginTop: 32,
     marginBottom: 16,
   },
   sectionTitle: {
-    fontFamily: 'Poppins-SemiBold',
+    fontFamily: 'DMSans_SBD',
     fontSize: 18,
     color: '#1F1F39',
   },
@@ -298,35 +310,40 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   seeAllButtonText: {
-    fontFamily: 'Poppins-Medium',
-    fontSize: 14,
-    color: '#3D5CFF',
+    fontFamily: 'DMSans_BD',
+    fontSize: 16,
+    color: '#FF731F',
     marginRight: 4,
   },
   categoriesList: {
     paddingHorizontal: 24,
     paddingBottom: 16,
   },
-  categoryItem: {
-    backgroundColor: '#F3F3F3',
-    borderRadius: 8,
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    marginRight: 12,
+  categoryItemContainer: {
+    alignItems: 'center',
+    marginRight: 16,
   },
-  activeCategoryItem: {
-    backgroundColor: '#3D5CFF',
+  categoryPlaceholder: {
+    width: 48,
+    height: 48,
+    borderRadius: 8,
+    backgroundColor: '#F4F4F5',
+    marginBottom: 8,
+  },
+  activeCategoryPlaceholder: {
+    backgroundColor: '#FF731F',
   },
   categoryItemText: {
-    fontFamily: 'Poppins-Regular',
-    fontSize: 14,
-    color: '#1F1F39',
+    fontFamily: 'DMSans_MD',
+    fontSize: 12,
+    color: '#8A8A8E',
+    textAlign: 'center',
   },
   activeCategoryItemText: {
-    color: '#FFFFFF',
+    color: '#FF731F',
   },
   dailyQuoteContainer: {
-    backgroundColor: '#F3F3F3',
+    backgroundColor: '#F4F4F5',
     marginHorizontal: 24,
     marginTop: 24,
     padding: 24,
@@ -336,9 +353,9 @@ const styles = StyleSheet.create({
     minHeight: 120,
   },
   dailyQuoteText: {
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'DMSans_BD',
     fontSize: 16,
-    color: '#1F1F39',
+    color: '#000',
     textAlign: 'center',
   },
   recommendationCoursesList: {
@@ -346,9 +363,9 @@ const styles = StyleSheet.create({
     paddingBottom: 16,
   },
   courseCard: {
-    width: 250,
+    width:250,
     marginRight: 16,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#FFF',
     borderRadius: 8,
     overflow: 'hidden',
     elevation: 2,
@@ -362,37 +379,48 @@ const styles = StyleSheet.create({
     height: 150,
   },
   courseCardContent: {
-    padding: 12,
+    marginTop:8,
+    padding: 8,
   },
-  courseCardTop: {
+  ratingAndSoldContainer: {
     flexDirection: 'row',
-    justifyContent: 'flex-start',
     alignItems: 'center',
-    marginBottom: 8,
+    marginBottom: 10,
   },
   ratingContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginRight:20
+    marginRight: 8,
   },
   ratingText: {
-    fontFamily: 'Poppins-Regular',
-    fontSize: 12,
-    color: '#858597',
+    fontFamily: 'DMSans_RG',
+    fontSize: 9,
+    color: '#AEAEB2',
     marginLeft: 4,
   },
-  courseTitle: {
-    fontFamily: 'Poppins-Medium',
-    fontSize: 16,
-    color: '#1F1F39',
-    marginBottom: 8,
+  soldCountText: {
+    fontFamily: 'DMSans_RG',
+    fontSize: 9,
+    color: '#AEAEB2',
   },
-  courseCardBottom: {
-    // Adjusted for horizontal list item display
+  courseTitle: {
+    fontFamily: 'DMSans_MD',
+    fontSize: 12,
+    color: '#000',
+    marginBottom: 9,
   },
   coursePrice: {
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'DMSans_MD',
     fontSize: 12,
-    color: '#3D5CFF',
+    color: '#FF731F',
+  },
+  profileImageContainer: {
+    marginLeft: 8,
+  },
+  profileImage: {
+    width: 32,
+    height: 32,
+    borderRadius: 20,
+    // backgroundColor: '#E0E0E0',
   },
 });

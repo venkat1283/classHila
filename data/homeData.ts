@@ -118,3 +118,51 @@ export const reviews = [
     comment: 'The instructor is very knowledgeable and the course is very comprehensive. I learned a lot!'
   }
 ];
+
+export const topics = [
+  {
+    id: '1',
+    name: 'How To Powerfully Influence Anyone ',
+    avatar: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg',
+    rating: 5,
+    reviews: 500,
+    courses:12,
+    college:'XYZ collegee'
+  },
+  {
+    id: '2',
+    name: 'How To Powerfully Influence Anyone ',
+    avatar: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg',
+    rating: 5,
+    reviews: 500,
+    courses:12,
+    college:'XYZ collegee'
+  },
+  {
+    id: '3',
+    name: 'How To Powerfully Influence Anyone ',
+    avatar: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg',
+    rating: 5,
+    reviews: 500,
+    courses:12,
+    college:'XYZ collegee'
+  },
+  {
+    id: '4',
+    name: 'How To Powerfully Influence Anyone ',
+    avatar: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg',
+    rating: 5,
+    reviews: 500,
+    courses:12,
+    college:'XYZ collegee'
+  },
+  {
+    id: '5',
+    name: 'How To Powerfully Influence Anyone ',
+    avatar: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg',
+    rating: 5,
+    reviews: 500,
+    courses:12,
+    college:'XYZ collegee'
+  },
+]

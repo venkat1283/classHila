@@ -94,8 +94,8 @@ export default function CourseDetailScreen() {
               <Star 
                 key={i} 
                 size={14} 
-                color={i < item.rating ? "#FFC107" : "#E5E5E5"} 
-                fill={i < item.rating ? "#FFC107" : "#E5E5E5"} 
+                color={i < item.rating ? "#FF731F" : "#E5E5E5"} 
+                fill={i < item.rating ? "#FF731F" : "#E5E5E5"} 
               />
             ))}
             <Text style={styles.reviewDate}>{item.date}</Text>
@@ -114,7 +114,7 @@ export default function CourseDetailScreen() {
           { opacity: headerOpacity }
         ]}
       >
-        <SafeAreaView edges={['top']}>
+        <SafeAreaView  edges={['top','bottom']}>
           <View style={styles.headerContainer}>
             <TouchableOpacity 
               style={styles.backButton} 
@@ -148,7 +148,7 @@ export default function CourseDetailScreen() {
             resizeMode="cover"
           />
           
-          <SafeAreaView edges={['top']} style={styles.courseHeaderOverlay}>
+          <SafeAreaView  edges={['top','bottom']} style={styles.courseHeaderOverlay}>
             <View style={styles.courseHeaderContent}>
               <TouchableOpacity 
                 style={styles.backButtonTransparent} 
@@ -169,7 +169,7 @@ export default function CourseDetailScreen() {
               <Text style={styles.categoryText}>{course.category}</Text>
             </View>
             <View style={styles.ratingContainer}>
-              <Star size={16} color="#FFC107" fill="#FFC107" />
+              <Star size={16} color="#FF731F" fill="#FF731F" />
               <Text style={styles.ratingText}>{course.rating}</Text>
               <Text style={styles.reviewCount}>(2,531)</Text>
             </View>
@@ -263,8 +263,8 @@ export default function CourseDetailScreen() {
                       <Star 
                         key={i} 
                         size={16} 
-                        color={i < Math.floor(course.rating) ? "#FFC107" : "#E5E5E5"} 
-                        fill={i < Math.floor(course.rating) ? "#FFC107" : "#E5E5E5"} 
+                        color={i < Math.floor(course.rating) ? "#FF731F" : "#E5E5E5"} 
+                        fill={i < Math.floor(course.rating) ? "#FF731F" : "#E5E5E5"} 
                       />
                     ))}
                   </View>
@@ -310,7 +310,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
   },
   headerTitle: {
-    fontFamily: 'Poppins-SemiBold',
+    fontFamily: 'DMSans_SBD',
     fontSize: 16,
     color: '#1F1F39',
     flex: 1,
@@ -372,7 +372,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   categoryText: {
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Roboto_MD',
     fontSize: 12,
     color: '#3D5CFF',
   },
@@ -381,25 +381,25 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   ratingText: {
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Roboto_MD',
     fontSize: 14,
     color: '#1F1F39',
     marginLeft: 4,
     marginRight: 2,
   },
   reviewCount: {
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'Roboto_RG',
     fontSize: 12,
     color: '#858597',
   },
   courseTitle: {
-    fontFamily: 'Poppins-SemiBold',
+    fontFamily: 'DMSans_SBD',
     fontSize: 20,
     color: '#1F1F39',
     marginBottom: 8,
   },
   instructorName: {
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'Roboto_RG',
     fontSize: 14,
     color: '#858597',
     marginBottom: 12,
@@ -414,7 +414,7 @@ const styles = StyleSheet.create({
     marginRight: 24,
   },
   infoText: {
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'Roboto_RG',
     fontSize: 14,
     color: '#858597',
     marginLeft: 8,
@@ -426,7 +426,7 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   priceText: {
-    fontFamily: 'Poppins-Bold',
+    fontFamily: 'Roboto_BD',
     fontSize: 24,
     color: '#3D5CFF',
   },
@@ -437,7 +437,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   enrollButtonText: {
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Roboto_MD',
     fontSize: 14,
     color: '#FFFFFF',
   },
@@ -445,13 +445,13 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   descriptionTitle: {
-    fontFamily: 'Poppins-SemiBold',
+    fontFamily: 'DMSans_SBD',
     fontSize: 16,
     color: '#1F1F39',
     marginBottom: 8,
   },
   descriptionText: {
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'Roboto_RG',
     fontSize: 14,
     color: '#858597',
     lineHeight: 22,
@@ -473,7 +473,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#3D5CFF',
   },
   tabButtonText: {
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Roboto_MD',
     fontSize: 14,
     color: '#858597',
   },
@@ -500,7 +500,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
   },
   sectionTitle: {
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Roboto_MD',
     fontSize: 14,
     color: '#1F1F39',
   },
@@ -537,7 +537,7 @@ const styles = StyleSheet.create({
     marginRight: 12,
   },
   lessonTitle: {
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'Roboto_RG',
     fontSize: 14,
     color: '#1F1F39',
     flex: 1,
@@ -546,7 +546,7 @@ const styles = StyleSheet.create({
     color: '#858597',
   },
   lessonDuration: {
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'Roboto_RG',
     fontSize: 12,
     color: '#858597',
   },
@@ -557,7 +557,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   reviewsHeaderTitle: {
-    fontFamily: 'Poppins-SemiBold',
+    fontFamily: 'DMSans_SBD',
     fontSize: 16,
     color: '#1F1F39',
     marginBottom: 12,
@@ -567,7 +567,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   overallRatingValue: {
-    fontFamily: 'Poppins-Bold',
+    fontFamily: 'Roboto_BD',
     fontSize: 32,
     color: '#1F1F39',
     marginRight: 16,
@@ -577,7 +577,7 @@ const styles = StyleSheet.create({
     marginRight: 12,
   },
   totalReviews: {
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'Roboto_RG',
     fontSize: 12,
     color: '#858597',
   },
@@ -606,7 +606,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   reviewName: {
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Roboto_MD',
     fontSize: 14,
     color: '#1F1F39',
     marginBottom: 4,
@@ -616,13 +616,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   reviewDate: {
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'Roboto_RG',
     fontSize: 12,
     color: '#858597',
     marginLeft: 12,
   },
   reviewComment: {
-    fontFamily: 'Poppins-Regular',
+    fontFamily: 'Roboto_RG',
     fontSize: 14,
     color: '#858597',
     lineHeight: 22,
@@ -634,13 +634,13 @@ const styles = StyleSheet.create({
     padding: 24,
   },
   errorText: {
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Roboto_MD',
     fontSize: 18,
     color: '#1F1F39',
     marginBottom: 16,
   },
   backButtonText: {
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Roboto_MD',
     fontSize: 16,
     color: '#3D5CFF',
   },
