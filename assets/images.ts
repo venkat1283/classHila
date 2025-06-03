@@ -16,7 +16,12 @@ const images={
     lamp:require('./images/splash/Lamp.png'),
     light:require('./images/splash/Light.png'),
     lightEffect:require('./images/splash/LightEffect.png'),
-    splash:require('./images/splash.png')
+    splash:require('./images/splash.png'),
+    test:require('./images/Test/Test.png'),
+    review:require('./images/Test/Review.png'),
+    rotate:require('./images/Test/Rotate.png'),
+    timer:require('./images/Test/Timer.png'),
+    share:require('./images/Test/Share.png'),
 }
 
 export default images;

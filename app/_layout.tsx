@@ -41,8 +41,8 @@ const RootLayout = () => {
       }
       SplashScreen.hideAsync();
       if (Platform.OS === 'android') {
-        NavigationBar.setVisibilityAsync('hidden');
-        NavigationBar.setBehaviorAsync('overlay-swipe');
+        NavigationBar.setVisibilityAsync('visible');
+        NavigationBar.setBehaviorAsync('inset-swipe');
       }
       setAppIsReady(true);
     }
@@ -93,6 +93,9 @@ const RootLayout = () => {
         <Stack.Screen name="lookingFor" options={{ headerShown: false }} />
         <Stack.Screen name="interestSelectionScreen" options={{ headerShown: false }} />
         <Stack.Screen name="setupScreen" options={{ headerShown: false }} />
+        <Stack.Screen name="startTestScreen" options={{ headerShown: false }} />
+        <Stack.Screen name="testScreen" options={{ headerShown: false }} />
+        <Stack.Screen name="scoreScreen" options={{ headerShown: false }} />
       </Stack>
       <StatusBar style="dark" />
     </>

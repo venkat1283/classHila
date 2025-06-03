@@ -97,7 +97,7 @@ export default function HomeScreen() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <SafeAreaView style={styles.container}  edges={['top','bottom']}>
+      <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
         <View style={styles.contentContainer}>
           <Animated.ScrollView
             contentContainerStyle={[styles.scrollContent, { paddingBottom: 80 }]}

@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Image, Platform } from 'react
 import { Star } from 'lucide-react-native';
 import * as Progress from 'react-native-progress';
 import React from 'react';
+import { useRouter } from 'expo-router';
 // Note: ProgressBarAndroid is for Android. For iOS, consider using a custom view or a library like react-native-progress
 
 interface MyCourseItemProps {
@@ -19,6 +20,11 @@ interface MyCourseItemProps {
 
 const MyCourseItem = ({ course, isFinished }: MyCourseItemProps) => {
     const progressBarValue = course.progress / 100; // Convert percentage to a 0-1 value
+    const router = useRouter();
+
+    const handleTakeTestPress = () => {
+        router.push('/startTestScreen');
+    };
 
     return (
         <View style={styles.card}>
@@ -57,7 +63,7 @@ const MyCourseItem = ({ course, isFinished }: MyCourseItemProps) => {
                 ) : (
                     
                      <View style={styles.buttonsContainer}>
-                         <TouchableOpacity style={styles.takeTestButton}>
+                         <TouchableOpacity style={styles.takeTestButton} onPress={handleTakeTestPress}>
                              <Text style={styles.takeTestButtonText}>Take a Test</Text>
                          </TouchableOpacity>
                           <TouchableOpacity style={styles.continueButton}>
