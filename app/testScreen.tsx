@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ChevronLeft, Check, X, Clock } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
+import images from '@/assets/images';
 
 interface OptionProps {
   text: string;
@@ -85,6 +86,26 @@ const TestScreen = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedOptions, setSelectedOptions] = useState<{ [key: number]: string | null }>({});
   const [correctAnswers, setCorrectAnswers] = useState<{ [key: number]: string }>({}); // Stores correct answer IDs
+  const [timeLeft, setTimeLeft] = useState(10 * 60); // 10 minutes in seconds
+
+  useEffect(() => {
+    if (timeLeft <= 0) {
+      router.replace('/scoreScreen');
+      return; // Stop the timer if time is up
+    }
+
+    const timerId = setInterval(() => {
+      setTimeLeft(prevTime => prevTime - 1);
+    }, 1000);
+
+    return () => clearInterval(timerId); // Cleanup on unmount
+  }, [timeLeft, router]);
+
+  const formatTime = (totalSeconds: number) => {
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    return `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  };
 
   // Dummy test data (replace with actual data)
   const testQuestions = [
@@ -112,6 +133,42 @@ const TestScreen = () => {
       ],
       correctAnswerId: 'o8',
     },
+    {
+      id: 'q1',
+      question: 'The SI unit of Electric Charge is',
+      options: [
+        { id: 'o1', text: 'Option 1' },
+        { id: 'o2', text: 'Option 2' },
+        { id: 'o3', text: 'Option 3' },
+        { id: 'o4', text: 'Option 4' },
+        { id: 'o5', text: 'Option 5' },
+      ],
+      correctAnswerId: 'o1', // Example correct answer
+    },
+    // Add more questions as needed
+    {
+      id: 'q2',
+      question: 'What is the capital of France?',
+      options: [
+        { id: 'o6', text: 'Berlin' },
+        { id: 'o7', text: 'Madrid' },
+        { id: 'o8', text: 'Paris' },
+        { id: 'o9', text: 'Rome' },
+      ],
+      correctAnswerId: 'o8',
+    },
+    {
+      id: 'q1',
+      question: 'The SI unit of Electric Charge is',
+      options: [
+        { id: 'o1', text: 'Option 1' },
+        { id: 'o2', text: 'Option 2' },
+        { id: 'o3', text: 'Option 3' },
+        { id: 'o4', text: 'Option 4' },
+        { id: 'o5', text: 'Option 5' },
+      ],
+      correctAnswerId: 'o1', // Example correct answer
+    },
   ];
 
   const handleOptionSelect = (optionId: string) => {
@@ -129,42 +186,45 @@ const TestScreen = () => {
       ...prev,
       [currentQuestionIndex]: testQuestions[currentQuestionIndex].correctAnswerId,
     }));
-    router.replace('/scoreScreen'); // Navigate to ScoreScreen
+    router.push('/scoreScreen'); // Navigate to ScoreScreen
   };
 
   const currentQuestion = testQuestions[currentQuestionIndex];
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={['top']}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
-          <ChevronLeft size={24} color="#1F1F39" />
+          <Image source={images.left} style={styles.leftImg} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Test</Text>
         <View style={styles.timerContainer}>
           <Clock size={16} color="#FF731F" />
-          <Text style={styles.timerText}>09:32</Text>
+          <Text style={styles.timerText}>{formatTime(timeLeft)}</Text>
         </View>
       </View>
 
-      <FlatList
-        data={testQuestions}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item, index }) => (
-          <TouchableOpacity 
-            style={[styles.questionNumberButton, index === currentQuestionIndex && styles.questionNumberButtonActive]}
-            onPress={() => setCurrentQuestionIndex(index)}
-          >
-            <Text style={[
-              styles.questionNumberText,
-              index === currentQuestionIndex && styles.questionNumberTextActive
-            ]}>{index + 1}</Text>
-          </TouchableOpacity>
-        )}
-        contentContainerStyle={styles.questionNumbersContainer}
-      />
+      <View style={styles.questionNumbersWrapper}>
+        <FlatList
+          data={testQuestions}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item, index }) => (
+            <TouchableOpacity 
+              style={[styles.questionNumberButton, index === currentQuestionIndex && styles.questionNumberButtonActive]}
+              onPress={() => setCurrentQuestionIndex(index)}
+            >
+              <Text style={[
+                styles.questionNumberText,
+                index === currentQuestionIndex && styles.questionNumberTextActive
+              ]}>{index + 1}</Text>
+            </TouchableOpacity>
+          )}
+          contentContainerStyle={styles.questionNumbersContainer}
+          style={{ width: '100%' }}
+        />
+      </View>
 
       <QuestionCard
         questionNumber={currentQuestionIndex + 1}
@@ -193,16 +253,23 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 24,
     paddingVertical: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#F2F2F7',
   },
   backButton: {
-    padding: 8,
+    padding: 5,
+    width: 24,
+    height: 24,
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 9999,
+  },
+  leftImg:{
+    width:24,
+    height:24
   },
   headerTitle: {
-    fontFamily: 'DMSans_SBD',
-    fontSize: 18,
-    color: '#1F1F39',
+    fontFamily:'Raleway_BD',
+    fontSize: 17,
+    color: '#000',
     flex: 1,
     textAlign: 'center',
     marginLeft: -24, // Adjust for back button space
@@ -210,27 +277,35 @@ const styles = StyleSheet.create({
   timerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent:'center',
     backgroundColor: '#FFF8EC',
     borderRadius: 8,
     paddingHorizontal: 12,
     paddingVertical: 6,
+    width:80
   },
   timerText: {
     fontFamily: 'DMSans_SBD',
     fontSize: 14,
-    color: '#FF731F',
+    color: '#000',
     marginLeft: 4,
   },
-  questionNumbersContainer: {
+  questionNumbersWrapper: {
     paddingHorizontal: 24,
-    paddingVertical: 16,
+    width: '100%',
+    alignItems: 'center',
     borderBottomWidth: 1,
     borderBottomColor: '#F2F2F7',
+    paddingVertical: 16,
+  },
+  questionNumbersContainer: {
+    justifyContent: 'center',
+    flexGrow: 1,
   },
   questionNumberButton: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: 36,
+    height: 36,
+    borderRadius: 18,
     borderWidth: 1,
     borderColor: '#E0E0E0',
     justifyContent: 'center',
@@ -244,8 +319,8 @@ const styles = StyleSheet.create({
   },
   questionNumberText: {
     fontFamily: 'DMSans_BD',
-    fontSize: 16,
-    color: '#1F1F39',
+    fontSize: 14,
+    color: '#000',
   },
   questionNumberTextActive: {
     color: '#FFFFFF',
@@ -284,9 +359,9 @@ const styles = StyleSheet.create({
     borderColor: 'transparent',
   },
   optionButtonText: {
-    fontFamily: 'DMSans_MD',
-    fontSize: 14,
-    color: '#1F1F39',
+    fontFamily: 'DMSans_RG',
+    fontSize: 16,
+    color: '#000',
     flex: 1,
   },
   optionSelected: {
@@ -303,11 +378,14 @@ const styles = StyleSheet.create({
   },
   submitButton: {
     backgroundColor: '#FF731F',
-    borderRadius: 16,
-    marginHorizontal: 24,
+    borderRadius: 8,
     paddingVertical: 16,
     alignItems: 'center',
     marginTop: 32,
+    position:'absolute',
+    bottom:60,
+    left:16,
+    right:16
   },
   submitButtonText: {
     fontFamily: 'DMSans_BD',

@@ -17,6 +17,8 @@ import { popularCourses, categories } from '@/data/homeData';
 import { TextInput, GestureHandlerRootView } from 'react-native-gesture-handler';
 import images from '@/assets/images';
 import CustomBottomNavigationView from './components/CustomBottomNavigationView';
+import StudyTargetCard from '../components/StudyTargetCard';
+import AddNewTargetModal from '../components/AddNewTargetModal';
 
 // Define types for data
 interface Course {
@@ -44,6 +46,7 @@ export default function HomeScreen() {
   const insets = useSafeAreaInsets();
 
   const [activeCategory, setActiveCategory] = useState<Category>('All');
+  const [isModalVisible, setModalVisible] = useState(false); // State for modal visibility
   const scrollY = useRef(new Animated.Value(0)).current;
 
   const activeTab = pathname === '/index' ? 'Home'
@@ -115,7 +118,7 @@ export default function HomeScreen() {
               <View style={styles.statusInfoPlaceholder}>
                 {/* Icons or Text can be added here if functionality is implemented later */}
               </View>
-              <TouchableOpacity style={styles.iconButton}>
+              <TouchableOpacity style={styles.iconButton} onPress={() => router.push('/notificationsScreen')}>
                 <Image source={images.bell} style={styles.notifImg} />
                 {/* Notification badge if needed */}
               </TouchableOpacity>
@@ -157,6 +160,37 @@ export default function HomeScreen() {
             </View>
 
             <View style={styles.sectionHeader}>
+              <Text style={styles.sectionTitle}>Study Targets</Text>
+              <Link href="/targetScreen" asChild>
+                <TouchableOpacity style={styles.seeAllButton}>
+                  <Text style={styles.seeAllButtonText}>See All</Text>
+                  <ChevronRight size={16} color="#FF731F" />
+                </TouchableOpacity>
+              </Link>
+            </View>
+
+            <View style={styles.goalsProgressContainer}>
+              <Text style={styles.goalsText}>My Goals</Text>
+              <View style={styles.progressBarBackground}>
+                <View style={styles.progressBarFill} />
+              </View>
+              <Text style={styles.goalsCount}>5/8</Text>
+            </View>
+
+            <StudyTargetCard
+              title="Physics Chapter 4"
+              subject="Physics"
+              estimationTime="45 Mins"
+              dueDate="05-06-2025"
+              onEdit={() => console.log('Edit')}
+              onDelete={() => console.log('Delete')}
+            />
+
+            <TouchableOpacity style={styles.addNewTargetButton} onPress={() => setModalVisible(true)}>
+              <Text style={styles.addNewTargetButtonText}>+ Add New Target</Text>
+            </TouchableOpacity>
+
+            <View style={styles.sectionHeader}>
               <Text style={styles.sectionTitle}>Recommendation Course</Text>
               <Link href="/recommendationCourses" asChild>
                 <TouchableOpacity style={styles.seeAllButton}>
@@ -178,6 +212,14 @@ export default function HomeScreen() {
         </View>
         <CustomBottomNavigationView activeTab={activeTab} />
 
+        <AddNewTargetModal
+          isVisible={isModalVisible}
+          onClose={() => setModalVisible(false)}
+          onSave={(target) => {
+            console.log('New Target Saved:', target);
+            // Here you would typically add the new target to your state or a backend
+          }}
+        />
       </SafeAreaView>
     </GestureHandlerRootView>
   );
@@ -243,7 +285,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto_RG',
     fontSize: 12,
     color: '#1F1F39',
-    paddingVertical: 0,
+    height: 40,
   },
   banner: {
     marginHorizontal: 24,
@@ -422,5 +464,49 @@ const styles = StyleSheet.create({
     height: 32,
     borderRadius: 20,
     // backgroundColor: '#E0E0E0',
+  },
+  goalsProgressContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginHorizontal: 24,
+    marginBottom: 20,
+  },
+  goalsText: {
+    fontFamily: 'DMSans_MD',
+    fontSize: 14,
+    color: '#1F1F39',
+    marginRight: 10,
+  },
+  progressBarBackground: {
+    flex: 1,
+    height: 6,
+    backgroundColor: '#E5E5E5',
+    borderRadius: 3,
+  },
+  progressBarFill: {
+    width: '62.5%', // 5/8 = 62.5%
+    height: '100%',
+    backgroundColor: '#4CAF50',
+    borderRadius: 3,
+  },
+  goalsCount: {
+    fontFamily: 'DMSans_RG',
+    fontSize: 12,
+    color: '#858597',
+    marginLeft: 10,
+  },
+  addNewTargetButton: {
+    backgroundColor: '#FF731F',
+    paddingVertical: 14,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+    marginHorizontal: 24,
+    alignItems: 'center',
+    marginBottom: 32,
+  },
+  addNewTargetButtonText: {
+    fontFamily: 'DMSans_BD',
+    fontSize: 16,
+    color: '#FFFFFF',
   },
 });

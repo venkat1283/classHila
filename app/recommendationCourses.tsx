@@ -4,6 +4,8 @@ import { ChevronLeft } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
 import TopicItem from './components/TopicItem'; // Import the reusable component
 import React, { useState } from 'react';
+import { Image } from 'react-native';
+import images from '@/assets/images';
 
 // Dummy data for recommended courses (replace with actual data fetching later)
 const recommendedCourses = [
@@ -61,7 +63,7 @@ const recommendationCourses = () => {
         {/* Header */}
         <View style={styles.header}>
           <TouchableOpacity style={styles.backButton} onPress={handleBackPress}>
-            <ChevronLeft size={24} color="#1F1F39" />
+            <Image source={images.left} style={styles.leftImg} />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>Recommendation Course</Text>
           {/* Placeholder to balance the header if needed */}
@@ -121,8 +123,11 @@ const styles = StyleSheet.create({
       borderBottomColor: '#F3F3F3',
     },
     backButton: {
-      padding: 8,
       marginRight: 8,
+    },
+    leftImg:{
+      width:24,
+      height:24
     },
     headerTitle: {
       flex: 1,

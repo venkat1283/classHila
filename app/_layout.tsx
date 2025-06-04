@@ -13,7 +13,7 @@ import { Home, BookOpen, Heart } from 'lucide-react-native';
 import React from 'react';
 import * as SystemUI from 'expo-system-ui';
 import * as NavigationBar from 'expo-navigation-bar';
-import { Platform } from 'react-native';
+import { Platform, TouchableOpacity } from 'react-native';
 
 // Prevent splash screen from auto-hiding
 SplashScreen.preventAutoHideAsync();
@@ -31,6 +31,7 @@ const RootLayout = () => {
     DMSans_SBD: require('../assets/fonts/DMSans-SemiBold.ttf'),
     DMSans_BD: require('../assets/fonts/DMSans-Bold.ttf'),
     Raleway_BD: require('../assets/fonts/Raleway-Bold.ttf'),
+    Raleway_SBD: require('../assets/fonts/Raleway-SemiBold.ttf'),
     Montserrat_SBD: require('../assets/fonts/Montserrat-SemiBold.ttf')
   });
 
@@ -96,6 +97,7 @@ const RootLayout = () => {
         <Stack.Screen name="startTestScreen" options={{ headerShown: false }} />
         <Stack.Screen name="testScreen" options={{ headerShown: false }} />
         <Stack.Screen name="scoreScreen" options={{ headerShown: false }} />
+        <Stack.Screen name="leaderBoardScreen" options={{ headerShown: false }} />
       </Stack>
       <StatusBar style="dark" />
     </>

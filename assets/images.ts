@@ -22,6 +22,12 @@ const images={
     rotate:require('./images/Test/Rotate.png'),
     timer:require('./images/Test/Timer.png'),
     share:require('./images/Test/Share.png'),
+    pic1:require('./images/Test/Pic1.png'),
+    pic2:require('./images/Test/Pic2.png'),
+    pic3:require('./images/Test/Pic3.png'),
+    firstPlaceBg:require('./images/Test/First.png'),
+    secondPlaceBg:require('./images/Test/Second.png'),
+    thirdPlaceBg:require('./images/Test/Third.png'),
 }
 
 export default images;

@@ -67,7 +67,7 @@ const ProfileScreen = () => {
 
             <ScrollView contentContainerStyle={styles.menuItemsContainer}>
                 <View style={styles.menuCard}>
-                    <ProfileMenuItem title="Notifications" value={12} />
+                    <ProfileMenuItem title="Notifications" value={12} onPress={() => router.push('/notificationsScreen')} />
                     <ProfileMenuItem title="My Course" value={12} onPress={() => router.push('/myCoursesScreen')} />
                     <ProfileMenuItem title="My Certificates" onPress={() => router.push('/myCertificatesScreen')} />
                     <ProfileMenuItem title="Likes" value={3} onPress={() => router.push('/myFavouritesScreen')} />
@@ -78,7 +78,7 @@ const ProfileScreen = () => {
 
                 <View style={styles.menuCard}>
                     <ProfileMenuItem title="Privacy & policy" />
-                    <ProfileMenuItem title="Help & Support" />
+                    <ProfileMenuItem title="Help & Support" onPress={() => router.push({ pathname: '/helpSupportScreen', params: { initialTab: 0 } })} />
                     <ProfileMenuItem title="Terms & Condition" />
                 </View>
 

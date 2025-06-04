@@ -5,6 +5,8 @@ import { useRouter, usePathname } from 'expo-router';
 import FavoriteCourseItem from './components/FavoriteCourseItem';
 import { Home, BookOpen, Heart } from 'lucide-react-native';
 import CustomBottomNavigationView from './components/CustomBottomNavigationView';
+import { Image } from 'react-native';
+import images from '@/assets/images';
 
 // Dummy data for favorite courses (replace with actual data fetching)
 const myFavoritesData = [
@@ -59,7 +61,7 @@ const MyFavouritesScreen = () => {
             {/* Header */}
             <View style={styles.header}>
                 <TouchableOpacity style={styles.backButton} onPress={handleBackPress}>
-                    <ChevronLeft size={24} color="#1F1F39" />
+                    <Image source={images.left} style={styles.leftImg} />
                 </TouchableOpacity>
                 <Text style={styles.headerTitle}>My Favorite</Text>
                 <TouchableOpacity style={styles.menuButton} onPress={handleMenuPress}>
@@ -107,9 +109,12 @@ const styles = StyleSheet.create({
         borderBottomColor: '#F3F3F3',
     },
     backButton: {
-        padding: 8,
         marginRight: 8,
     },
+    leftImg:{
+        width:24,
+        height:24
+      },
     headerTitle: {
         flex: 1,
         fontFamily: 'DMSans_SBD',

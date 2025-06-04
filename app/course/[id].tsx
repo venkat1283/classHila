@@ -120,7 +120,7 @@ export default function CourseDetailScreen() {
               style={styles.backButton} 
               onPress={() => router.back()}
             >
-              <ChevronLeft size={24} color="#1F1F39" />
+              <Image source={images.left} style={styles.leftImg} />
             </TouchableOpacity>
             <Text style={styles.headerTitle} numberOfLines={1}>
               {course.title}

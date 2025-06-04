@@ -1,7 +1,8 @@
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ChevronLeft, MoreVertical } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
+import images from '@/assets/images';
 
 // Dummy data or components for certificates will go here later
 
@@ -22,7 +23,7 @@ const MyCertificatesScreen = () => {
             {/* Header */}
             <View style={styles.header}>
                 <TouchableOpacity style={styles.backButton} onPress={handleBackPress}>
-                    <ChevronLeft size={24} color="#1F1F39" />
+                    <Image source={images.left} style={styles.leftImg} />
                 </TouchableOpacity>
                 <Text style={styles.headerTitle}>My Certificates</Text>
                 <TouchableOpacity style={styles.menuButton} onPress={handleMenuPress}>
@@ -53,9 +54,12 @@ const styles = StyleSheet.create({
         borderBottomColor: '#F3F3F3',
     },
     backButton: {
-        padding: 8,
         marginRight: 8,
     },
+    leftImg:{
+        width:24,
+        height:24
+      },
     headerTitle: {
         flex: 1,
         fontFamily: 'DMSans_SBD',

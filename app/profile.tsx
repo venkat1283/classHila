@@ -14,6 +14,22 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Settings, ChevronRight, BookOpen, Award, Clock } from 'lucide-react-native';
 import { popularCourses } from '@/data/homeData';
 
+interface CourseItem {
+  id: string;
+  title: string;
+  image: string;
+  instructor: string;
+  category: string;
+  price: number;
+  rating: number;
+  lessons: number;
+  soldCount: number;
+  isBestseller: boolean;
+  duration: string;
+  level: string;
+  description: string;
+}
+
 export default function ProfileScreen() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState('courses');
@@ -48,7 +64,7 @@ export default function ProfileScreen() {
     );
   };
   
-  const renderCourseItem = ({ item, index }) => (
+  const renderCourseItem = ({ item, index }: { item: CourseItem; index: number }) => (
     <TouchableOpacity 
       style={[
         styles.courseItem, 

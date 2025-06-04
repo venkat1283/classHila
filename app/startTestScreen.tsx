@@ -12,7 +12,7 @@ const StartTestScreen = () => {
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
-          <ChevronLeft size={24} color="#1F1F39" />
+          <Image source={images.left} style={styles.leftImg} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Test</Text>
         <View style={styles.headerRightPlaceholder} />
@@ -59,32 +59,40 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 24,
     paddingVertical: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#F2F2F7',
   },
   backButton: {
-    padding: 8,
+  },
+  leftImg:{
+    width:24,
+    height:24
   },
   headerTitle: {
-    fontFamily: 'DMSans_SBD', // Assuming you have this font or similar
-    fontSize: 18,
-    color: '#1F1F39',
+    fontFamily: 'Raleway_BD', // Assuming you have this font or similar
+    fontSize: 17,
+    color: '#000',
   },
   headerRightPlaceholder: {
     width: 24, // To balance the back button
   },
   imageContainer: {
+    width:'90%',
+    alignSelf:'center',
     alignItems: 'center',
-    marginVertical: 32,
+    marginVertical: 25,
     paddingHorizontal: 24,
+    backgroundColor:'#FFEFC3',
   },
   illustrationImage: {
     width: '100%',
-    height: 200,
+    resizeMode:'center',
+    aspectRatio:0.9
+    // height: 200,
+    // aspectRatio:0.88
+    
   },
   detailsCard: {
     backgroundColor: '#FFFFFF',
-    borderRadius: 16,
+    borderRadius: 8,
     marginHorizontal: 24,
     padding: 24,
     elevation: 2,
@@ -96,27 +104,33 @@ const styles = StyleSheet.create({
   },
   detailRow: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent:'space-around',
     marginBottom: 8,
   },
   detailLabel: {
-    fontFamily: 'DMSans_MD', // Assuming you have this font or similar
-    fontSize: 14,
-    color: '#1F1F39',
-    flex: 1,
+    fontFamily: 'DMSans_SBD', // Assuming you have this font or similar
+    fontSize: 15,
+    color: '#000',
+    width:'50%',
   },
   detailValue: {
-    fontFamily: 'DMSans_RG', // Assuming you have this font or similar
-    fontSize: 14,
-    color: '#1F1F39',
+    flex:1,
+    fontFamily: 'DMSans_SBD', // Assuming you have this font or similar
+    fontSize: 15,
+    color: '#000',
     marginLeft: 16,
+    textAlign:'left',
   },
   startButton: {
     backgroundColor: '#FF731F',
-    borderRadius: 16,
+    borderRadius: 8,
     marginHorizontal: 24,
-    paddingVertical: 16,
+    paddingVertical: 12,
     alignItems: 'center',
+    position:'absolute',
+    bottom:60,
+    left:16,
+    right:16  
   },
   startButtonText: {
     fontFamily: 'DMSans_BD', // Assuming you have this font or similar

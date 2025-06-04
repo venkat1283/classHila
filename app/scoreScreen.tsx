@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-nati
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ChevronLeft, Eye, RotateCcw, Share2, Award } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
+import { Image } from 'react-native';
+import images from '@/assets/images';
 
 interface StatItemProps {
   label: string;
@@ -12,11 +14,11 @@ interface StatItemProps {
 
 const StatItem: React.FC<StatItemProps> = ({ label, value, color }) => (
   <View style={styles.statItem}>
-    <View style={[styles.statDot, { backgroundColor: color }]} />
-    <View>
+    <View style={styles.statValueRow}>
+      <View style={[styles.statDot, { backgroundColor: color }]} />
       <Text style={[styles.statValue, { color }]}>{value}</Text>
-      <Text style={styles.statLabel}>{label}</Text>
     </View>
+    <Text style={styles.statLabel}>{label}</Text>
   </View>
 );
 
@@ -24,11 +26,12 @@ interface ActionButtonProps {
   icon: React.ReactNode;
   label: string;
   onPress: () => void;
+  backgroundColor: string;
 }
 
-const ActionButton: React.FC<ActionButtonProps> = ({ icon, label, onPress }) => (
+const ActionButton: React.FC<ActionButtonProps> = ({ icon, label, onPress, backgroundColor }) => (
   <TouchableOpacity style={styles.actionButton} onPress={onPress}>
-    <View style={styles.actionButtonIconContainer}>
+    <View style={[styles.actionButtonIconContainer, { backgroundColor }]}>
       {icon}
     </View>
     <Text style={styles.actionButtonText}>{label}</Text>
@@ -63,6 +66,7 @@ const ScoreScreen = () => {
   const handleLeaderBoard = () => {
     console.log('Leader Board');
     // Navigate to leader board screen
+    router.push('/leaderBoardScreen');
   };
 
   const handleBackToHome = () => {
@@ -74,18 +78,21 @@ const ScoreScreen = () => {
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.header}>
           <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
-            <ChevronLeft size={24} color="#1F1F39" />
+            <Image source={images.left} style={styles.leftImg} />
           </TouchableOpacity>
-          <Text style={styles.headerTitle}>Test</Text>
+          <Text style={styles.headerTitle}></Text>
           <View style={styles.headerRightPlaceholder} />
         </View>
 
         <View style={styles.scoreSummaryContainer}>
+        <View style={styles.scoreCircleMain}>
           <View style={styles.scoreCircleOuter}>
             <View style={styles.scoreCircleInner}>
+            <Text style={styles.totalText}>Total Score</Text>
               <Text style={styles.scoreText}>{score < 10 ? `0${score}` : score}</Text>
               <Text style={styles.scoreOutOfText}>Out of {totalQuestions}</Text>
             </View>
+          </View>
           </View>
         </View>
 
@@ -101,10 +108,10 @@ const ScoreScreen = () => {
         </View>
 
         <View style={styles.actionsContainer}>
-          <ActionButton icon={<Eye size={24} color="#673AB7" />} label="Review Test" onPress={handleReviewTest} />
-          <ActionButton icon={<RotateCcw size={24} color="#4CAF50" />} label="Reattempt Test" onPress={handleReattemptTest} />
-          <ActionButton icon={<Share2 size={24} color="#2196F3" />} label="Share Score" onPress={handleShareScore} />
-          <ActionButton icon={<Award size={24} color="#757575" />} label="Leader Board" onPress={handleLeaderBoard} />
+          <ActionButton icon={<Eye size={24} color="#FFFFFF" />} label="Review Test" onPress={handleReviewTest} backgroundColor="#673AB7" />
+          <ActionButton icon={<RotateCcw size={24} color="#FFFFFF" />} label="Reattempt Test" onPress={handleReattemptTest} backgroundColor="#4CAF50" />
+          <ActionButton icon={<Share2 size={24} color="#FFFFFF" />} label="Share Score" onPress={handleShareScore} backgroundColor="#2196F3" />
+          <ActionButton icon={<Award size={24} color="#FFFFFF" />} label="Leader Board" onPress={handleLeaderBoard} backgroundColor="#757575" />
         </View>
 
         <TouchableOpacity style={styles.backToHomeButton} onPress={handleBackToHome}>
@@ -130,14 +137,20 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 24,
     paddingVertical: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#F2F2F7',
   },
   backButton: {
-    padding: 8,
+  
+    width: 24,
+    height: 24,
+   
+    zIndex: 9999,
+  },
+  leftImg:{
+    width:24,
+    height:24
   },
   headerTitle: {
-    fontFamily: 'DMSans_SBD',
+    fontFamily: 'DMSans_BD',
     fontSize: 18,
     color: '#1F1F39',
     flex: 1,
@@ -152,7 +165,17 @@ const styles = StyleSheet.create({
     paddingVertical: 40,
     alignItems: 'center',
     justifyContent: 'center',
+    marginHorizontal:16,
+    borderRadius:10,
     marginBottom: 24,
+  },
+  scoreCircleMain: {
+    width: 180,
+    height: 180,
+    borderRadius: 90,
+    backgroundColor: 'rgba(255, 255, 255, 0.3)',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   scoreCircleOuter: {
     width: 150,
@@ -161,6 +184,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255, 255, 255, 0.3)',
     alignItems: 'center',
     justifyContent: 'center',
+    borderWidth:1,
+    borderColor:'#8A8A8E'
   },
   scoreCircleInner: {
     width: 120,
@@ -170,9 +195,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  totalText:{
+    fontFamily: 'DMSans_RG',
+    fontSize: 14,
+    color: '#6A6A85',
+  },
   scoreText: {
     fontFamily: 'DMSans_BD',
-    fontSize: 48,
+    fontSize: 24,
     color: '#1F1F39',
   },
   scoreOutOfText: {
@@ -183,7 +213,7 @@ const styles = StyleSheet.create({
   statsCard: {
     backgroundColor: '#FFFFFF',
     borderRadius: 16,
-    marginHorizontal: 24,
+    marginHorizontal: 16,
     padding: 24,
     elevation: 2,
     shadowColor: '#000',
@@ -194,12 +224,13 @@ const styles = StyleSheet.create({
   },
   statsRow: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-evenly',
     marginBottom: 16,
+    gap: 20,
   },
   statItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    width:'50%',
+    alignItems: 'flex-start',
   },
   statDot: {
     width: 8,
@@ -209,13 +240,21 @@ const styles = StyleSheet.create({
   },
   statValue: {
     fontFamily: 'DMSans_BD',
-    fontSize: 20,
-    marginBottom: 4,
+    fontSize: 14,
+    marginBottom: 2,
+    textAlign: 'center',
   },
   statLabel: {
-    fontFamily: 'DMSans_RG',
-    fontSize: 14,
-    color: '#6A6A85',
+    fontFamily: 'DMSans_MD',
+    fontSize: 12,
+    color: '#585858',
+    textAlign: 'center',
+    marginLeft:15
+  },
+  statValueRow: { // New style for the row containing dot and value
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent:'flex-start',
   },
   actionsContainer: {
     flexDirection: 'row',
@@ -230,28 +269,26 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   actionButtonIconContainer: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
+    width: 40,
+    height: 40,
+    borderRadius: 8,
     backgroundColor: '#F2F2F7',
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 8,
   },
   actionButtonText: {
-    fontFamily: 'DMSans_MD',
+    fontFamily: 'Roboto_RG',
     fontSize: 12,
-    color: '#1F1F39',
+    color: '#000000CC',
     textAlign: 'center',
   },
   backToHomeButton: {
     backgroundColor: 'transparent',
     borderRadius: 16,
     marginHorizontal: 24,
-    paddingVertical: 16,
+    paddingVertical: 0,
     alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#FF731F',
   },
   backToHomeButtonText: {
     fontFamily: 'DMSans_BD',
